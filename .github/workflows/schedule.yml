@@ -1,0 +1,36 @@
+name: "Generate Snyk GitHub Actions"
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  actions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Set up Ruby 2.6
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.6.x
+      - name: Render latest template
+        run: |
+          ruby build.rb
+      - name: Commit to repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.github_token }}
+          COMMIT_MSG: |
+            Generated new GitHub Actions templates
+            skip-checks: true
+        run: |
+          # Hard-code user config
+          git config user.email "gareth@morethanseven.net"
+          git config user.name "Gareth Rushgrove"
+          git config --get-regexp "user\.(name|email)"
+          # Update origin with token
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          # Checkout the branch so we can push back to it
+          git checkout master
+          git add .
+          # Only commit and push if we have changes
+          git diff --quiet && git diff --staged --quiet || (git commit -m "${COMMIT_MSG}"; git push origin master)
