@@ -4,11 +4,16 @@ author: "Gareth Rushgrove"
 branding:
   icon: "alert-triangle"
   color: "yellow"
-inputs: 
+inputs:
+  command:
+    description: "Which Snyk command to run, defaults to test"
+    default: test
   args:
     description: "Additional arguments to pass to Snyk"
 runs:
   using: "docker"
   image: "docker://garethr/snyk-<%= @variant.downcase %>:latest"
   args:
+  - snyk
+  - ${{ inputs.command }}
   - ${{ inputs.args }} 
