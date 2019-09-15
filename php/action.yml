@@ -5,13 +5,10 @@ branding:
   icon: "alert-triangle"
   color: "yellow"
 inputs: 
-  version:
-    description: "The version of the Snyk image Snyk to use"
-    default: "latest"
   args:
     description: "Additional arguments to pass to Snyk"
 runs:
   using: "docker"
-  image: "docker://garethr/snyk-php:${{ inputs.version }}"
+  image: "docker://garethr/snyk-php:latest"
   args:
   - ${{ inputs.args }} 

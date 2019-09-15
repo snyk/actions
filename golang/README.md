@@ -25,7 +25,6 @@ passed to the action using `with`.
 | Property | Default | Description |
 | --- | --- | --- |
 | args |   | Override the default arguments to the Snyk image |
-| version | latest | Which version of the image to use. See [snyk-images](https://github.com/garethr/snyk-images) for details |
 
 For example, you can choose to only report on high severity vulnerabilities.
 
