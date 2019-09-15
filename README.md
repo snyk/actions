@@ -1,5 +1,7 @@
 # Snyk GitHub Actions
 
+![](https://github.com/garethr/snyk-actions/workflows/Generate%20Snyk%20GitHub%20Actions/badge.svg)
+
 A set of [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.io) to check for
 vulnerabilities in your GitHub projects. A different action is required depending on which language or build tool
 you are using. We currently support:
