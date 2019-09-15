@@ -30,8 +30,6 @@ jobs:
       uses: garethr/snyk-actions/node@master
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      with:
-        version: 12
 ```
 
 
@@ -51,7 +49,7 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
-        args: snyk monitor
+        command: monitor
 ```
 
 

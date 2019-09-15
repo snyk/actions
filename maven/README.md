@@ -25,6 +25,7 @@ passed to the action using `with`.
 | Property | Default | Description |
 | --- | --- | --- |
 | args |   | Override the default arguments to the Snyk image |
+| commands | test | Specifiy which command to run, for instance test or monitor |
 
 For example, you can choose to only report on high severity vulnerabilities.
 
@@ -41,5 +42,5 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
-        args: snyk test --severity-threshold=high
+        args: --severity-threshold=high
 ```
