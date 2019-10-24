@@ -15,6 +15,7 @@ you are using. We currently support:
 * [Python](python)
 * [Ruby](ruby)
 * [Scala](scala)
+* [Docker](docker)
 
 Here's an example of using one of the Actions, in this case to test a Node.js project:
 
