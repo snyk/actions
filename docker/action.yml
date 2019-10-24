@@ -1,0 +1,23 @@
+name: "Snyk Docker"
+description: "Check your Docker images for vulnerabilties using Snyk"
+author: "Gareth Rushgrove"
+branding:
+  icon: "alert-triangle"
+  color: "yellow"
+inputs:
+  command:
+    description: "Which Snyk command to run, defaults to test"
+    default: test
+  args:
+    description: "Additional arguments to pass to Snyk"
+  image:
+    description: "Image to test"
+runs:
+  using: "docker"
+  image: "docker://snyk/snyk:docker"
+  args:
+  - snyk
+  - ${{ inputs.command }}
+  - ${{ inputs.args }}
+  - --docker
+  - ${{ inputs.image }}
