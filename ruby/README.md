@@ -6,7 +6,7 @@ vulnerabilities in your Ruby projects.
 You can use the Action as follows:
 
 ```yaml
-name: Example workflow for Ruby usng Snyk 
+name: Example workflow for Ruby using Snyk 
 on: push
 jobs:
   security:
@@ -25,12 +25,12 @@ passed to the action using `with`.
 | Property | Default | Description |
 | --- | --- | --- |
 | args |   | Override the default arguments to the Snyk image |
-| commands | test | Specifiy which command to run, for instance test or monitor |
+| command | test | Specify which command to run, for instance test or monitor |
 
 For example, you can choose to only report on high severity vulnerabilities.
 
 ```yaml
-name: Example workflow for Ruby usng Snyk 
+name: Example workflow for Ruby using Snyk 
 on: push
 jobs:
   security:
