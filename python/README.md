@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Run Snyk to check for vulnerabilities
-      uses: garethr/snyk-actions/python@master
+      uses: snyk/actions/python@master
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 ```
@@ -38,7 +38,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Run Snyk to check for vulnerabilities
-      uses: garethr/snyk-actions/python@master
+      uses: snyk/actions/python@master
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:

@@ -12,7 +12,7 @@ inputs:
     description: "Additional arguments to pass to Snyk"
 runs:
   using: "docker"
-  image: "docker://garethr/snyk-node:latest"
+  image: "docker://snyk/snyk:node"
   args:
   - snyk
   - ${{ inputs.command }}

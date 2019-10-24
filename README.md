@@ -1,6 +1,6 @@
 # Snyk GitHub Actions
 
-![](https://github.com/garethr/snyk-actions/workflows/Generate%20Snyk%20GitHub%20Actions/badge.svg)
+![](https://github.com/snyk/actions/workflows/Generate%20Snyk%20GitHub%20Actions/badge.svg)
 
 A set of [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.io) to check for
 vulnerabilities in your GitHub projects. A different action is required depending on which language or build tool
@@ -27,7 +27,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Run Snyk to check for vulnerabilities
-      uses: garethr/snyk-actions/node@master
+      uses: snyk/actions/node@master
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 ```
@@ -45,7 +45,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Run Snyk to check for vulnerabilities
-      uses: garethr/snyk-actions/node@master
+      uses: snyk/actions/node@master
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:

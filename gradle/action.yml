@@ -12,7 +12,7 @@ inputs:
     description: "Additional arguments to pass to Snyk"
 runs:
   using: "docker"
-  image: "docker://garethr/snyk-gradle:latest"
+  image: "docker://snyk/snyk:gradle"
   args:
   - snyk
   - ${{ inputs.command }}
