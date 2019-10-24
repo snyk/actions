@@ -12,7 +12,7 @@ inputs:
     description: "Additional arguments to pass to Snyk"
 runs:
   using: "docker"
-  image: "docker://garethr/snyk-<%= @variant.downcase %>:latest"
+  image: "docker://snyk/snyk:<%= @variant.downcase %>"
   args:
   - snyk
   - ${{ inputs.command }}
