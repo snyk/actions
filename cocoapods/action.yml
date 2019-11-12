@@ -1,0 +1,19 @@
+name: "Snyk CocoaPods"
+description: "Check your CocoaPods application for vulnerabilties using Snyk"
+author: "Gareth Rushgrove"
+branding:
+  icon: "alert-triangle"
+  color: "yellow"
+inputs:
+  command:
+    description: "Which Snyk command to run, defaults to test"
+    default: test
+  args:
+    description: "Additional arguments to pass to Snyk"
+runs:
+  using: "docker"
+  image: "docker://snyk/snyk:cocoapods"
+  args:
+  - snyk
+  - ${{ inputs.command }}
+  - ${{ inputs.args }} 
