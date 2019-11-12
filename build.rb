@@ -10,6 +10,7 @@ require 'fileutils'
 
 
 @variants = [
+  "CocoaPods",
   "DotNet",
   "Golang",
   "Gradle",
