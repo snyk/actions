@@ -1,4 +1,4 @@
-name: "Snyk <%= @variant %>"
+name: "Snyk<% if @variant != "Node"%> <%= @variant %><% end %>"
 description: "Check your <%= @variant %> application for vulnerabilties using Snyk"
 author: "Gareth Rushgrove"
 branding:
