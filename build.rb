@@ -46,3 +46,10 @@ File.open("README.md", "w") { |file| file.puts renderer.result() }
     }
   end
 end
+
+#
+# Currently in order to submit Actions to the marketplace you need to have a file
+# called action.yml in the root of your directory
+#
+puts "Generating root Action"
+FileUtils.cp("node/action.yml", ".")
