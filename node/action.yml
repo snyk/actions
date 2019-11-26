@@ -1,4 +1,4 @@
-name: "Snyk Node"
+name: "Snyk"
 description: "Check your Node application for vulnerabilties using Snyk"
 author: "Gareth Rushgrove"
 branding:
