@@ -14,7 +14,9 @@ require 'fileutils'
   "DotNet",
   "Golang",
   "Gradle",
+  "Gradle-jdk12",
   "Maven",
+  "Maven-3-jdk-11",
   "Node",
   "PHP",
   "Python",
@@ -34,6 +36,7 @@ File.open("README.md", "w") { |file| file.puts renderer.result() }
     FileUtils.mkdir_p(dirname)
   end
   @variant = variant
+  @name, @ident = variant.split("-", 2)
   [
     "action.yml",
     "README.md",

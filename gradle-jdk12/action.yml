@@ -1,5 +1,5 @@
-name: "Snyk<% if @variant != "Node"%> <%= @name %><% if @ident %> (<%= @ident %>)<% end %><% end %>"
-description: "Check your <%= @name %> application for vulnerabilties using Snyk"
+name: "Snyk Gradle (jdk12)"
+description: "Check your Gradle application for vulnerabilties using Snyk"
 author: "Gareth Rushgrove"
 branding:
   icon: "alert-triangle"
@@ -12,7 +12,7 @@ inputs:
     description: "Additional arguments to pass to Snyk"
 runs:
   using: "docker"
-  image: "docker://snyk/snyk:<%= @variant.downcase %>"
+  image: "docker://snyk/snyk:gradle-jdk12"
   args:
   - snyk
   - ${{ inputs.command }}

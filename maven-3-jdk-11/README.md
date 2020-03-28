@@ -1,12 +1,12 @@
-# Snyk <%= @name %><% if @ident %> (<%= @ident %>) <% end %> Action
+# Snyk Maven (3-jdk-11)  Action
 
 A [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.io) to check for
-vulnerabilities in your <%= @variant %> projects.
+vulnerabilities in your Maven-3-jdk-11 projects.
 
 You can use the Action as follows:
 
 ```yaml
-name: Example workflow for <%= @name %> using Snyk 
+name: Example workflow for Maven using Snyk 
 on: push
 jobs:
   security:
@@ -14,12 +14,12 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Run Snyk to check for vulnerabilities
-      uses: snyk/actions/<%= @variant.downcase %>@master
+      uses: snyk/actions/maven-3-jdk-11@master
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 ```
 
-The Snyk <%= @name %> Action has properties which are passed to the underlying image. These are
+The Snyk Maven Action has properties which are passed to the underlying image. These are
 passed to the action using `with`.
 
 | Property | Default | Description |
@@ -30,7 +30,7 @@ passed to the action using `with`.
 For example, you can choose to only report on high severity vulnerabilities.
 
 ```yaml
-name: Example workflow for <%= @name %> using Snyk 
+name: Example workflow for Maven using Snyk 
 on: push
 jobs:
   security:
@@ -38,7 +38,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Run Snyk to check for vulnerabilities
-      uses: snyk/actions/<%= @variant.downcase %>@master
+      uses: snyk/actions/maven-3-jdk-11@master
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
