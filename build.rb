@@ -14,6 +14,7 @@ require 'fileutils'
   "DotNet",
   "Golang",
   "Gradle",
+  "Gradle-jdk11",
   "Gradle-jdk12",
   "Maven",
   "Maven-3-jdk-11",
