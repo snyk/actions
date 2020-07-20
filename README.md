@@ -66,12 +66,12 @@ Note: GitHub Actions will not pass on secrets set in the repository to forks bei
 
 The Actions example above refer to a Snyk API token:
 
-```
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+```yaml
+env:
+  SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 ```
 
 Every Snyk account has this token, and you can find it in one of two ways:
-1. If you're using the [Snyk CLI](https://support.snyk.io/hc/en-us/articles/360003812458-Getting-started-with-the-CLI) you can retrieve it by running `snyk config get api`
+1. If you're using the [Snyk CLI](https://support.snyk.io/hc/en-us/articles/360003812458-Getting-started-with-the-CLI) you can retrieve it by running `snyk config get api`.
 2. In the UI, go to your account's general settings page (https://app.snyk.io/account) and retrieve the API token, as shown in the following [Revoking and regenerating Snyk API tokens](https://support.snyk.io/hc/en-us/articles/360004008278-Revoking-and-regenerating-Snyk-API-tokens).
 
