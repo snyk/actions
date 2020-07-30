@@ -61,3 +61,22 @@ jobs:
 See the individual Actions linked above for per-language instructions.
 
 Note: GitHub Actions will not pass on secrets set in the repository to forks being used in pull requests, and so the Snyk actions that require the token will fail to run.
+
+Note: The above examples will halt the action when issues are found. If you want to ensure the action continues, even if Snyk finds issues, then [conmtinue-on-error]https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepscontinue-on-error will need to be set.
+
+```yaml
+name: Example workflow using Snyk with continue on error
+on: push
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Run Snyk to check for vulnerabilities
+      uses: snyk/actions/node@master
+      continue-on-error: true
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        command: monitor
+```
