@@ -10,6 +10,9 @@ inputs:
     default: test
   args:
     description: "Additional arguments to pass to Snyk"
+  json:
+    description: "Output a snyk.json file with results if running the test command"
+    default: false
 runs:
   using: "docker"
   image: "docker://snyk/snyk:golang"
