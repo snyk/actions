@@ -12,6 +12,9 @@ inputs:
     description: "Additional arguments to pass to Snyk"
   image:
     description: "Image to test"
+  json:
+    description: "Output a snyk.json file with results if running the test command"
+    default: false
 runs:
   using: "docker"
   image: "docker://snyk/snyk:docker"
