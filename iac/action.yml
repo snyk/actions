@@ -1,0 +1,26 @@
+name: "Snyk Infrastructure ss Code"
+description: "Check your Infrastructure as Code fields for issues using Snyk"
+author: "Gareth Rushgrove"
+branding:
+  icon: "alert-triangle"
+  color: "yellow"
+inputs:
+  command:
+    description: "Which Snyk command to run, defaults to test"
+    default: test
+  args:
+    description: "Additional arguments to pass to Snyk"
+  file:
+    description: "File to test"
+  json:
+    description: "Output a snyk.json file with results if running the test command"
+    default: true
+runs:
+  using: "docker"
+  image: "docker://snyk/snyk:linux"
+  args:
+  - snyk
+  - iac
+  - ${{ inputs.command }}
+  - ${{ inputs.file }}
+  - ${{ inputs.args }}
