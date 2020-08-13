@@ -20,6 +20,7 @@ you are using. We currently support:
 * [Ruby](ruby)
 * [Scala](scala)
 * [Docker](docker)
+* [Infrastructure as Code](iac)
 
 Here's an example of using one of the Actions, in this case to test a Node.js project:
 
