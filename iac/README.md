@@ -32,7 +32,7 @@ passed to the action using `with`.
 For example, you can choose to only report on high severity vulnerabilities.
 
 ```yaml
-name: Example workflow for Docker using Snyk 
+name: Example workflow for Snyk Infrastructure as Code
 on: push
 jobs:
   security:
