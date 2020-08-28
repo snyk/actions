@@ -16,6 +16,8 @@ inputs:
 runs:
   using: "docker"
   image: "docker://snyk/snyk:gradle-jdk11"
+  env:
+    SNYK_INTEGRATION_NAME: GITHUB_ACTIONS
   args:
   - snyk
   - ${{ inputs.command }}
