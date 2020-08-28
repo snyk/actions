@@ -18,6 +18,8 @@ inputs:
 runs:
   using: "docker"
   image: "docker://snyk/snyk:linux"
+  env:
+    SNYK_INTEGRATION_NAME: GITHUB_ACTIONS
   args:
   - snyk
   - iac
