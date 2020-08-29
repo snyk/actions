@@ -18,6 +18,7 @@ runs:
   image: "docker://snyk/snyk:python"
   env:
     SNYK_INTEGRATION_NAME: GITHUB_ACTIONS
+    SNYK_INTEGRATION_VERSION: python
   args:
   - snyk
   - ${{ inputs.command }}
