@@ -76,7 +76,7 @@ Every Snyk account has this token, and you can find it in one of two ways:
 2. In the UI, go to your account's general settings page (https://app.snyk.io/account) and retrieve the API token, as shown in the following [Revoking and regenerating Snyk API tokens](https://support.snyk.io/hc/en-us/articles/360004008278-Revoking-and-regenerating-Snyk-API-tokens).
 
 
-Note: The above examples will halt the action when issues are found. If you want to ensure the action continues, even if Snyk finds issues, then [continue-on-error]https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepscontinue-on-error will need to be set.
+Note: The above examples will halt the action when issues are found. If you want to ensure the action continues, even if Snyk finds issues, then [conmtinue-on-error]https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepscontinue-on-error will need to be set.
 
 ```yaml
 name: Example workflow using Snyk with continue on error
