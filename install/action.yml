@@ -1,0 +1,15 @@
+name: "Snyk Install"
+description: "Installs a version of Snyk"
+author: "Gareth Rushgrove"
+branding:
+  icon: "alert-triangle"
+  color: "yellow"
+inputs:
+  version:
+    description: "Which Snyk version to install"
+    default: latest
+runs:
+  using: "composite"
+  steps:
+    - run: install_snyk.sh
+      shell: bash
