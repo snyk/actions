@@ -11,5 +11,5 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: $/install_snyk.sh
+    - run: ${{ github.action_path }}/install_snyk.sh
       shell: bash
