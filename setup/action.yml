@@ -1,5 +1,5 @@
-name: "Snyk Install"
-description: "Installs a version of Snyk"
+name: "Setup Snyk"
+description: "Installs a specific version of Snyk"
 author: "Gareth Rushgrove"
 branding:
   icon: "alert-triangle"
@@ -11,5 +11,5 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/install_snyk.sh ${{ inputs.snyk-version }}
+    - run: ${{ github.action_path }}/setup_snyk.sh ${{ inputs.snyk-version }}
       shell: bash
