@@ -5,11 +5,11 @@ branding:
   icon: "alert-triangle"
   color: "yellow"
 inputs:
-  version:
+  snyk-version:
     description: "Which Snyk version to install"
     default: latest
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/install_snyk.sh ${{ inputs.version }}
+    - run: ${{ github.action_path }}/install_snyk.sh ${{ inputs.snyk-version }}
       shell: bash
