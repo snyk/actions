@@ -10,7 +10,25 @@ die () {
 
 echo "Installing the $1 version of Snyk"
 
-wget -qO- https://api.github.com/repos/snyk/snyk/releases/${1} | grep "browser_download_url" | grep linux | cut -d '"' -f 4 | wget --progress=bar:force:noscroll -i - && \
-    sha256sum -c snyk-linux.sha256 && \
-    chmod +x snyk-linux && \
-    sudo mv snyk-linux /usr/local/bin/snyk
+if [ "$1" == "latest" ]; then
+    URL="https://api.github.com/repos/snyk/snyk/releases/${1}"
+else
+    URL="https://api.github.com/repos/snyk/snyk/releases/tags/${1}"
+fi
+
+{
+    echo "#!/bin/bash"
+    echo export SNYK_INTEGRATION_NAME="GITHUB_ACTIONS"
+    echo export SNYK_INTEGRATION_VERSION="setup"
+    echo eval snyk-linux \$@
+} > snyk
+
+chmod +x snyk
+sudo mv snyk /usr/local/bin
+
+wget -qO- ${URL} | grep "browser_download_url" | grep linux | cut -d '"' -f 4 | wget --progress=bar:force:noscroll -i -
+
+sha256sum -c snyk-linux.sha256
+chmod +x snyk-linux
+sudo mv snyk-linux /usr/local/bin
+
