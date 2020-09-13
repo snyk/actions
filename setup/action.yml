@@ -19,4 +19,4 @@ runs:
       shell: bash
     - id: version
       shell: bash
-      run: echo "::set-output name=version::$(snyk version)"
+      run: echo ::set-output name=version::"$(snyk version)"
