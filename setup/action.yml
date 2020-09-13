@@ -8,8 +8,15 @@ inputs:
   snyk-version:
     description: "Which Snyk version to install"
     default: latest
+outputs:
+  version:
+    description: "The version of Snyk installed"
+    value: ${{ steps.version.outputs.version }}
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/setup_snyk.sh ${{ inputs.snyk-version }}
+    - run: ${{ github.action_path }}/setup_snyk.sh ${{ inputs.snyk-version }} ${{ runner.os }}
       shell: bash
+    - id: version
+      shell: bash
+      run: echo "::set-output name=version::$(snyk version)"
