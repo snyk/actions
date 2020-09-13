@@ -1,6 +1,19 @@
 #!/bin/bash
 set -e
 
+# This script takes two positional arguments. The first is the version of Snyk to install.
+# This can be a standard version (ie. v1.390.0) or it can be latest, in which case the
+# latest released version will be used.
+#
+# The second argument is the platform, in the format used by the `runner.os` context variable
+# in GitHub Actions. Note that this script does not currently support Windows based environments.
+#
+# As an example, the following would install the latest version of Snyk for GitHub Actions for
+# a Linux runner:
+#
+#     ./snyk-setup.sh latest Linux
+#
+
 die () {
     echo >&2 "$@"
     exit 1
