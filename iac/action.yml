@@ -15,6 +15,9 @@ inputs:
   json:
     description: "Output a snyk.json file with results if running the test command"
     default: true
+  sarif:
+    description: "Output a snyk.sarif file with results if running the test command"
+    default: false
 runs:
   using: "docker"
   image: "docker://snyk/snyk:linux"
