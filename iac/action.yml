@@ -14,10 +14,10 @@ inputs:
     description: "File to test"
   json:
     description: "Output a snyk.json file with results if running the test command"
-    default: true
+    default: false
   sarif:
     description: "Output a snyk.sarif file with results if running the test command"
-    default: false
+    default: true
 runs:
   using: "docker"
   image: "docker://snyk/snyk:alpine"

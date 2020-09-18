@@ -17,7 +17,7 @@ inputs:
     default: false
   sarif:
     description: "Output a snyk.sarif file with results if running the test command"
-    default: false
+    default: true
 runs:
   using: "docker"
   image: "docker://snyk/snyk:docker"
