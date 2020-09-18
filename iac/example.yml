@@ -1,10 +1,9 @@
-# A sample workflow which checks out your Infrastructure-as-Code Configuration files,
+# A sample workflow which checks out your Infrastructure as Code Configuration files,
 # such as Kubernetes, Helm & Terraform and scans them for any security issues.
 # The results are then uploaded to GitHub Security Code Scanning
 #
-# For more examples, including how to limit scans to only high-severity
-# issues, monitor images for newly disclosed vulnerabilities in Snyk and
-# fail PR checks for new vulnerabilities, see https://github.com/snyk/actions/
+# For more examples, including how to limit scans to only high-severity issues
+# and fail PR checks for new , see https://github.com/snyk/actions/
 
 name: Snyk Infrastructure as Code
 on: push
@@ -26,6 +25,7 @@ jobs:
         with:
           # Add the path to the configuration file that you would like to test.
           # For example `deployment.yaml` for a Kubernetes deployment manifest
+          # or `main.tf` for a Terraform configuration file
           file: your-file-to-test.yaml
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v1
