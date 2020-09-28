@@ -26,6 +26,7 @@ passed to the action using `with`.
 | --- | --- | --- |
 | args |   | Override the default arguments to the Snyk image |
 | command | test | Specify which command to run, for instance test or monitor |
+| json | false | In addition to the stdout, save the results as snyk.json |
 
 For example, you can choose to only report on high severity vulnerabilities.
 
