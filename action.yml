@@ -1,5 +1,5 @@
 name: "Snyk"
-description: "Check your Node application for vulnerabilties using Snyk"
+description: "Check your applications for vulnerabilties using Snyk"
 author: "Gareth Rushgrove"
 branding:
   icon: "alert-triangle"
