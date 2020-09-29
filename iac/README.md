@@ -12,24 +12,24 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-    - name: Run Snyk to check Kubernetes manifest file for issues
-      uses: snyk/actions/iac@master
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      with:
-        file: your/kubernetes-manifest.yaml
+      - name: Run Snyk to check Kubernetes manifest file for issues
+        uses: snyk/actions/iac@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          file: your/kubernetes-manifest.yaml
 ```
 
 The Snyk Docker Action has properties which are passed to the underlying image. These are
 passed to the action using `with`.
 
-| Property | Default | Description |
-| --- | --- | --- |
-| args |   | Override the default arguments to the Snyk image |
-| command | test | Specify which command to run, currently only `test` is supported |
-| file |    | The file to check for issues. Currently only single files are supported |
-| json | false | In addition to the stdout, save the results as snyk.json |
-| sarif | true | In addition to the stdout, save the results as snyk.sarif
+| Property | Default | Description                                                             |
+| -------- | ------- | ----------------------------------------------------------------------- |
+| args     |         | Override the default arguments to the Snyk image                        |
+| command  | test    | Specify which command to run, currently only `test` is supported        |
+| file     |         | The file to check for issues. Currently only single files are supported |
+| json     | false   | In addition to the stdout, save the results as snyk.json                |
+| sarif    | true    | In addition to the stdout, save the results as snyk.sarif               |
 
 For example, you can choose to only report on high severity vulnerabilities.
 
@@ -40,13 +40,13 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-    - name: Run Snyk to check Kubernetes manifest file for issues
-      uses: snyk/actions/iac@master
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      with:
-        file: your/kubernetes-manifest.yaml
-        args: --severity-threshold=high
+      - name: Run Snyk to check Kubernetes manifest file for issues
+        uses: snyk/actions/iac@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          file: your/kubernetes-manifest.yaml
+          args: --severity-threshold=high
 ```
 
 The Infrastructure as Code Action also supports integrating with GitHub Code Scanning and can show issues in the GitHub Security tab. When run, a `snyk.sarif` file will be generated which can be uploaded to GitHub Code Scanning.
@@ -77,5 +77,5 @@ jobs:
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v1
         with:
-          sarif_file: snyk.sari
+          sarif_file: snyk.sarif
 ```
