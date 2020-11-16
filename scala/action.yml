@@ -15,7 +15,7 @@ inputs:
     default: false
 runs:
   using: "docker"
-  image: "docker.pkg.github.com/zendesk/dockerhub-images/snyk:scala"
+  image: "docker://docker.pkg.github.com/zendesk/dockerhub-images/snyk:scala"
   env:
     SNYK_INTEGRATION_NAME: GITHUB_ACTIONS
     SNYK_INTEGRATION_VERSION: scala
