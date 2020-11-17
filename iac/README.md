@@ -1,6 +1,6 @@
 # Snyk Infrastructure as Code Action
 
-A [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.io) to check for
+A [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.co/SnykGH) to check for
 issues in your Infrastructure as Code files.
 
 You can use the Action as follows:
