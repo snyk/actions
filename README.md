@@ -2,7 +2,7 @@
 
 ![](https://github.com/snyk/actions/workflows/Generate%20Snyk%20GitHub%20Actions/badge.svg)
 
-A set of [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.io) to check for
+A set of [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.co/SnykGH) to check for
 vulnerabilities in your GitHub projects. A different action is required depending on which language or build tool
 you are using. We currently support:
 
@@ -99,7 +99,7 @@ env:
   SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}	
 ```	
 
-Every Snyk account has this token, and you can find it in one of two ways:	
+Every Snyk account has this token. Once you [create an account](https://snyk.co/SignUpGH) you can find it in one of two ways:	
 1. If you're using the [Snyk CLI](https://support.snyk.io/hc/en-us/articles/360003812458-Getting-started-with-the-CLI) you can retrieve it by running `snyk config get api`.	
 2. In the UI, go to your Snyk account's [settings page](https://app.snyk.io/account) and retrieve the API token, as shown in the following [Revoking and regenerating Snyk API tokens](https://support.snyk.io/hc/en-us/articles/360004008278-Revoking-and-regenerating-Snyk-API-tokens).
 
@@ -130,7 +130,7 @@ jobs:
       env:
         # In order to use the Snyk Action you will need to have a Snyk API token.
         # More details in https://github.com/snyk/actions#getting-your-snyk-token
-        # or you can signup for free at https://snyk.io/login
+        # or you can signup for free at https://snyk.co/SignUpGH
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
         image: your/image-to-test

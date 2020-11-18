@@ -1,6 +1,6 @@
 # Snyk CocoaPods Action
 
-A [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.io) to check for
+A [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.co/SnykGH) to check for
 vulnerabilities in your CocoaPods projects.
 
 You can use the Action as follows:
