@@ -15,7 +15,7 @@ inputs:
     default: false
 runs:
   using: "docker"
-  images: "docker://docker.pkg.github.com/zendesk/dockerhub-images/snyk:golang"
+  image: "docker://docker.pkg.github.com/zendesk/dockerhub-images/snyk:golang"
   env:
     SNYK_INTEGRATION_NAME: GITHUB_ACTIONS
     SNYK_INTEGRATION_VERSION: golang
