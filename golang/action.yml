@@ -15,11 +15,11 @@ inputs:
     default: false
 runs:
   using: "docker"
-  image: "docker://snyk/snyk:golang"
+  images: "docker://docker.pkg.github.com/zendesk/dockerhub-images/snyk:golang"
   env:
     SNYK_INTEGRATION_NAME: GITHUB_ACTIONS
     SNYK_INTEGRATION_VERSION: golang
   args:
   - snyk
   - ${{ inputs.command }}
-  - ${{ inputs.args }} 
+  - ${{ inputs.args }}
