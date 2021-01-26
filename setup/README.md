@@ -1,6 +1,6 @@
 # Snyk Setup Action
 
-A [GitHub Action](https://github.com/features/actions) for installing [Snyk](https://snyk.io) to check for
+A [GitHub Action](https://github.com/features/actions) for installing [Snyk](https://snyk.co/SnykGH) to check for
 vulnerabilities.
 
 You can use the Action as follows:
