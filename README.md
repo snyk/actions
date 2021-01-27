@@ -23,6 +23,8 @@ you are using. We currently support:
 * [Infrastructure as Code](iac)
 * [Setup](setup)
 
+Examples for how to use the Snyk GitHub Actions are available in the [guides](https://github.com/snyk/actions/guides) folder.
+
 Here's an example of using one of the Actions, in this case to test a Node.js project:
 
 ```yaml
