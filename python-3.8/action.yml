@@ -1,25 +1,25 @@
-name: 'Snyk Python'
-description: 'Check your Python application for vulnerabilties using Snyk'
-author: 'Gareth Rushgrove'
+name: "Snyk Python (3.8)"
+description: "Check your Python application for vulnerabilties using Snyk"
+author: "Gareth Rushgrove"
 branding:
-  icon: 'alert-triangle'
-  color: 'yellow'
+  icon: "alert-triangle"
+  color: "yellow"
 inputs:
   command:
-    description: 'Which Snyk command to run, defaults to test'
+    description: "Which Snyk command to run, defaults to test"
     default: test
   args:
-    description: 'Additional arguments to pass to Snyk'
+    description: "Additional arguments to pass to Snyk"
   json:
-    description: 'Output a snyk.json file with results if running the test command'
+    description: "Output a snyk.json file with results if running the test command"
     default: false
 runs:
-  using: 'docker'
-  image: 'docker://snyk/snyk:python-3.8'
+  using: "docker"
+  image: "docker://snyk/snyk:python-3.8"
   env:
     SNYK_INTEGRATION_NAME: GITHUB_ACTIONS
-    SNYK_INTEGRATION_VERSION: python
+    SNYK_INTEGRATION_VERSION: python-3.8
   args:
-    - snyk
-    - ${{ inputs.command }}
-    - ${{ inputs.args }}
+  - snyk
+  - ${{ inputs.command }}
+  - ${{ inputs.args }} 

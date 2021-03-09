@@ -1,7 +1,7 @@
-# Snyk Python 3.8 Action
+# Snyk Python (3.8)  Action
 
 A [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.co/SnykGH) to check for
-vulnerabilities in your Python projects.
+vulnerabilities in your Python-3.8 projects.
 
 You can use the Action as follows:
 
