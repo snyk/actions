@@ -21,6 +21,7 @@ require 'fileutils'
   "Node",
   "PHP",
   "Python",
+  "Python-3.8",
   "Ruby",
   "Scala",
 ]
