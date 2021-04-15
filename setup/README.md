@@ -31,7 +31,7 @@ passed to the action using `with`.
 
 | Property | Default | Description |
 | --- | --- | --- |
-| snyk-version | latest | Install a specific version of Snyj |
+| snyk-version | latest | Install a specific version of Snyk |
 
 The Action also has outputs:
 
