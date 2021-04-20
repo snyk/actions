@@ -53,7 +53,7 @@ Using `--sarif-file-output` [Snyk CLI flag][cli-ref] and the [official GitHub SA
 
 ![Snyk results as a SARIF output uploaded to GitHub Code Scanning](../_templates/sarif-example.png)
 
-Snyk Action will fail when vulnerabilities are found. This would prevent SARIF upload action to run, so we need to introduce a [continue-on-error](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepscontinue-on-error) option like so:
+The Snyk Action will fail when vulnerabilities are found. This would prevent the SARIF upload action from running, so we need to introduce a [continue-on-error](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepscontinue-on-error) option like this:
 
 ```yaml
 name: Example workflow for Node using Snyk
@@ -75,6 +75,8 @@ jobs:
         with:
           sarif_file: snyk.sarif
 ```
+
+Made with 💜 by Snyk
 
 [cli-gh]: https://github.com/snyk/snyk 'Snyk CLI'
 [cli-ref]: https://snyk.io/docs/using-snyk?utm_campaign=docs&utm_medium=github&utm_source=cli 'Snyk CLI Reference documentation'

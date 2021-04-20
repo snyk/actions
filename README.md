@@ -8,7 +8,7 @@ you are using. We currently support:
 
 
 - [CocoaPods](cocoapods)
-- [DotNet](dotnet)
+- [dotNET](dotnet)
 - [Golang](golang)
 - [Gradle](gradle)
 - [Gradle-jdk11](gradle-jdk11)
@@ -125,6 +125,8 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 ```
+
+Made with 💜 by Snyk
 
 [cli-gh]: https://github.com/snyk/snyk 'Snyk CLI'
 [cli-ref]: https://snyk.io/docs/using-snyk?utm_campaign=docs&utm_medium=github&utm_source=cli 'Snyk CLI Reference documentation'
