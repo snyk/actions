@@ -1,5 +1,5 @@
-name: "Snyk DotNet"
-description: "Check your DotNet application for vulnerabilties using Snyk"
+name: "Snyk dotNET"
+description: "Check your dotNET application for vulnerabilties using Snyk"
 author: "Gareth Rushgrove"
 branding:
   icon: "alert-triangle"

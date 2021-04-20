@@ -11,7 +11,7 @@ require 'fileutils'
 
 @variants = [
   "CocoaPods",
-  "DotNet",
+  "dotNET",
   "Golang",
   "Gradle",
   "Gradle-jdk11",
