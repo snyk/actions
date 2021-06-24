@@ -22,11 +22,14 @@ jobs:
           # More details in https://github.com/snyk/actions#getting-your-snyk-token
           # or you can signup for free at https://snyk.io/login
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          # Add the path to the configuration file that you would like to test.
-          # For example `deployment.yaml` for a Kubernetes deployment manifest
-          # or `main.tf` for a Terraform configuration file
-          file: your-file-to-test.yaml
+        # By default the whole directory and its files will be scanned.
+        # If you wish to scan a specific directory or file you can provide the file argument
+        # For example to specify `deployment.yaml` for a Kubernetes deployment manifest
+        # with:
+        #   file: deployment.yaml
+        # Or to specify a directory
+        # with:
+        #   file: my-folder
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v1
         with:
