@@ -82,7 +82,7 @@ jobs:
         with:
           go-version: '1.13'
       - name: Snyk monitor
-        run: snyk test
+        run: snyk monitor
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 ```
