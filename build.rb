@@ -16,6 +16,7 @@ require 'fileutils'
   "Gradle",
   "Gradle-jdk11",
   "Gradle-jdk12",
+  "Gradle-jdk14",
   "Maven",
   "Maven-3-jdk-11",
   "Node",
