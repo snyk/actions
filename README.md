@@ -14,6 +14,7 @@ you are using. We currently support:
 - [Gradle-jdk11](gradle-jdk11)
 - [Gradle-jdk12](gradle-jdk12)
 - [Gradle-jdk14](gradle-jdk14)
+- [Gradle-jdk16](gradle-jdk16)
 - [Maven](maven)
 - [Maven-3-jdk-11](maven-3-jdk-11)
 - [Node](node)

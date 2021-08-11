@@ -1,0 +1,25 @@
+name: "Snyk Gradle (jdk16)"
+description: "Check your Gradle application for vulnerabilties using Snyk"
+author: "Gareth Rushgrove"
+branding:
+  icon: "alert-triangle"
+  color: "yellow"
+inputs:
+  command:
+    description: "Which Snyk command to run, defaults to test"
+    default: test
+  args:
+    description: "Additional arguments to pass to Snyk"
+  json:
+    description: "Output a snyk.json file with results if running the test command"
+    default: false
+runs:
+  using: "docker"
+  image: "docker://snyk/snyk:gradle-jdk16"
+  env:
+    SNYK_INTEGRATION_NAME: GITHUB_ACTIONS
+    SNYK_INTEGRATION_VERSION: gradle-jdk16
+  args:
+  - snyk
+  - ${{ inputs.command }}
+  - ${{ inputs.args }} 
