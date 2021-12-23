@@ -12,12 +12,12 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-      - name: Run Snyk to check Kubernetes manifest file for issues
+      - name: Run Snyk to check Kubernetes manifest files for issues
         uses: snyk/actions/iac@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          file: your/kubernetes-manifest.yaml
+          file: your/kubernetes-manifest.yaml | directory | .
 ```
 
 The Snyk Docker Action has properties which are passed to the underlying image. These are
@@ -27,7 +27,7 @@ passed to the action using `with`.
 | -------- | ------- | ----------------------------------------------------------------------- |
 | args     |         | Override the default arguments to the Snyk image                        |
 | command  | test    | Specify which command to run, currently only `test` is supported        |
-| file     |         | The file to check for issues. Currently only single files are supported |
+| file     |         | The file path, files or directory to check for issues.                  |
 | json     | false   | In addition to the stdout, save the results as snyk.json                |
 | sarif    | true    | In addition to the stdout, save the results as snyk.sarif               |
 
