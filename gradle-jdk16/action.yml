@@ -1,5 +1,5 @@
-name: "Snyk dotNET"
-description: "Check your dotNET application for vulnerabilties using Snyk"
+name: "Snyk Gradle (jdk16)"
+description: "Check your Gradle application for vulnerabilties using Snyk"
 author: "Gareth Rushgrove"
 branding:
   icon: "alert-triangle"
@@ -15,10 +15,10 @@ inputs:
     default: false
 runs:
   using: "docker"
-  image: "docker://snyk/snyk:dotnet"
+  image: "docker://snyk/snyk:gradle-jdk16"
   env:
     SNYK_INTEGRATION_NAME: GITHUB_ACTIONS
-    SNYK_INTEGRATION_VERSION: dotnet
+    SNYK_INTEGRATION_VERSION: gradle-jdk16
   args:
   - snyk
   - ${{ inputs.command }}

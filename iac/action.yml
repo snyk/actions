@@ -1,4 +1,4 @@
-name: "Snyk Infrastructure ss Code"
+name: "Snyk Infrastructure as Code"
 description: "Check your Infrastructure as Code fields for issues using Snyk"
 author: "Gareth Rushgrove"
 branding:

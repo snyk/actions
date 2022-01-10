@@ -1,12 +1,12 @@
-# Snyk <%= @name %><% if @ident %> (<%= @ident %>) <% end %> Action
+# Snyk Python (3.7)  Action
 
 A [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.co/SnykGH) to check for
-vulnerabilities in your <%= @variant %> projects. This Action is based on the [Snyk CLI][cli-gh] and you can use [all of its options and capabilities][cli-ref] with the `args`.
+vulnerabilities in your Python-3.7 projects. This Action is based on the [Snyk CLI][cli-gh] and you can use [all of its options and capabilities][cli-ref] with the `args`.
 
 You can use the Action as follows:
 
 ```yaml
-name: Example workflow for <%= @name %> using Snyk
+name: Example workflow for Python using Snyk
 on: push
 jobs:
   security:
@@ -14,14 +14,14 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/<%= @variant.downcase %>@master
+        uses: snyk/actions/python-3.7@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 ```
 
 ## Properties
 
-The Snyk <%= @name %> Action has properties which are passed to the underlying image. These are passed to the action using `with`.
+The Snyk Python Action has properties which are passed to the underlying image. These are passed to the action using `with`.
 
 | Property | Default | Description                                                                                         |
 | -------- | ------- | --------------------------------------------------------------------------------------------------- |
@@ -32,7 +32,7 @@ The Snyk <%= @name %> Action has properties which are passed to the underlying i
 For example, you can choose to only report on high severity vulnerabilities.
 
 ```yaml
-name: Example workflow for <%= @name %> using Snyk
+name: Example workflow for Python using Snyk
 on: push
 jobs:
   security:
@@ -40,7 +40,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/<%= @variant.downcase %>@master
+        uses: snyk/actions/python-3.7@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
@@ -56,7 +56,7 @@ Using `--sarif-file-output` [Snyk CLI flag][cli-ref] and the [official GitHub SA
 The Snyk Action will fail when vulnerabilities are found. This would prevent the SARIF upload action from running, so we need to introduce a [continue-on-error](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepscontinue-on-error) option like this:
 
 ```yaml
-name: Example workflow for <%= @name %> using Snyk
+name: Example workflow for Python using Snyk
 on: push
 jobs:
   security:
@@ -64,7 +64,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/<%= @variant.downcase %>@master
+        uses: snyk/actions/python-3.7@master
         continue-on-error: true # To make sure that SARIF upload gets called
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
