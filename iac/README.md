@@ -23,13 +23,13 @@ jobs:
 The Snyk Infrastructure as Code Action has properties which are passed to the underlying image. These are
 passed to the action using `with`.
 
-| Property | Default | Description                                                             |
-| -------- | ------- | ----------------------------------------------------------------------- |
-| args     |         | Override the default arguments to the Snyk image                        |
-| command  | test    | Specify which command to run, currently only `test` is supported        |
-| file     |         | The file to check for issues. Currently only single files are supported |
-| json     | false   | In addition to the stdout, save the results as snyk.json                |
-| sarif    | true    | In addition to the stdout, save the results as snyk.sarif               |
+| Property | Default | Description                                                      |
+|----------|---------|------------------------------------------------------------------|
+| args     |         | Override the default arguments to the Snyk image                 |
+| command  | test    | Specify which command to run, currently only `test` is supported |
+| file     |         | The file to check for issues.                                    |
+| json     | false   | In addition to the stdout, save the results as snyk.json         |
+| sarif    | true    | In addition to the stdout, save the results as snyk.sarif        |
 
 For example, you can choose to only report on high severity vulnerabilities.
 
@@ -79,3 +79,30 @@ jobs:
         with:
           sarif_file: snyk.sarif
 ```
+
+### Specifying Multiple Files
+
+If you want to run IaC tests against multiple files, the [Build Matrix](https://docs.github.com/en/actions/using-jobs/using-a-build-matrix-for-your-jobs) feature can be used.
+
+```yaml
+name: Example workflow for Snyk Infrastructure as Code with multiple files
+on: push
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        files:
+          - main.tf
+          - outputs.tf
+          - variables.tf
+    steps:
+      - name: Run Snyk to check Kubernetes manifest file for issues
+        uses: snyk/actions/iac@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          file: ${{ matrix.files }}
+```
+
+The Actions example above refers to a `files` list that must contain at least _one_ supported file.
