@@ -113,7 +113,7 @@ All Snyk GitHub Actions support integration with GitHub Code Scanning to show vu
 
 ### Continuing on error
 
-The above examples will fail the workflow when issues are found. If you want to ensure the Action continues, even if Snyk finds vulnerabilities, then [continue-on-error](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepscontinue-on-error) can be used..
+The above examples will fail the workflow when issues are found. If you want to ensure the Action continues, even if Snyk finds vulnerabilities, then [continue-on-error](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepscontinue-on-error) can be used.
 
 ```yaml
 name: Example workflow using Snyk with continue on error

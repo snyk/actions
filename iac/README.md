@@ -20,7 +20,7 @@ jobs:
           file: your/kubernetes-manifest.yaml
 ```
 
-The Snyk Infrastructurer as Code Action has properties which are passed to the underlying image. These are
+The Snyk Infrastructure as Code Action has properties which are passed to the underlying image. These are
 passed to the action using `with`.
 
 | Property | Default | Description                                                             |
