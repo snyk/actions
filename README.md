@@ -113,7 +113,7 @@ All Snyk GitHub Actions support integration with GitHub Code Scanning to show vu
 
 ### Continuing on error
 
-The above examples will fail the workflow when issues are found. If you want to ensure the Action continues, even if Snyk finds vulnerabilities, then [continue-on-error](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepscontinue-on-error) can be used.
+The above examples will fail the workflow when issues are found. If you want to ensure the Action continues, even if Snyk finds vulnerabilities, then [continue-on-error](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepscontinue-on-error) can be used..
 
 ```yaml
 name: Example workflow using Snyk with continue on error
@@ -129,28 +129,6 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 ```
-
-### Specifying Snyk Organization
-
-If you want to run tests within a specific [Snyk Organization](https://docs.snyk.io/introducing-snyk/snyks-core-concepts/groups-organizations-and-users#snyk-organizations), then the `--org` argument can be used.
-
-```yaml
-name: Example workflow using Snyk with continue on error
-on: push
-jobs:
-  security:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --org=${{ secrets.SNYK_ORG }}
-```
-
-The Actions example above refers to a Snyk Organization identifier `SNYK_ORG` that must be specified as a GitHub Actions Secret.
 
 Made with 💜 by Snyk
 
