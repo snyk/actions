@@ -21,6 +21,8 @@ die () {
 
 [ "$#" -eq 2 ] || die "Setup Snyk requires two argument, $# provided"
 
+cd "$(mktemp -d)"
+
 echo "Installing the $1 version of Snyk on $2"
 
 if [ "$1" == "latest" ]; then
