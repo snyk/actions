@@ -49,7 +49,7 @@ esac
     echo "#!/bin/bash"
     echo export SNYK_INTEGRATION_NAME="GITHUB_ACTIONS"
     echo export SNYK_INTEGRATION_VERSION=\"setup \(${2}\)\"
-    echo export FORCE_COLOR= True
+    echo export FORCE_COLOR=2
     echo eval snyk-${PREFIX} \$@
 } > snyk
 
