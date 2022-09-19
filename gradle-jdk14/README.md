@@ -1,7 +1,7 @@
-# Snyk Gradle (jdk11)  Action
+# Snyk Gradle (jdk14)  Action
 
 A [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.co/SnykGH) to check for
-vulnerabilities in your Gradle-jdk11 projects. This Action is based on the [Snyk CLI][cli-gh] and you can use [all of its options and capabilities][cli-ref] with the `args`.
+vulnerabilities in your Gradle-jdk14 projects. This Action is based on the [Snyk CLI][cli-gh] and you can use [all of its options and capabilities][cli-ref] with the `args`.
 
 You can use the Action as follows:
 
@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/gradle-jdk11@master
+        uses: snyk/actions/gradle-jdk14@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 ```
@@ -40,7 +40,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/gradle-jdk11@master
+        uses: snyk/actions/gradle-jdk14@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
@@ -64,7 +64,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/gradle-jdk11@master
+        uses: snyk/actions/gradle-jdk14@master
         continue-on-error: true # To make sure that SARIF upload gets called
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

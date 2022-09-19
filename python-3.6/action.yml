@@ -1,5 +1,5 @@
-name: "Snyk<% if @variant != "Node"%> <%= @name %><% if @ident %> (<%= @ident %>)<% end %><% end %>"
-description: "Check your <%= @name %> application for vulnerabilties using Snyk"
+name: "Snyk Python (3.6)"
+description: "Check your Python application for vulnerabilties using Snyk"
 author: "Gareth Rushgrove"
 branding:
   icon: "alert-triangle"
@@ -15,11 +15,11 @@ inputs:
     default: false
 runs:
   using: "docker"
-  image: "docker://snyk/snyk:<%= @variant.downcase %>"
+  image: "docker://snyk/snyk:python-3.6"
   env:
     FORCE_COLOR: 2
     SNYK_INTEGRATION_NAME: GITHUB_ACTIONS
-    SNYK_INTEGRATION_VERSION: <%= @variant.downcase %>
+    SNYK_INTEGRATION_VERSION: python-3.6
   args:
   - snyk
   - ${{ inputs.command }}

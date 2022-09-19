@@ -11,16 +11,22 @@ require 'fileutils'
 
 @variants = [
   "CocoaPods",
-  "DotNet",
+  "dotNET",
   "Golang",
   "Gradle",
   "Gradle-jdk11",
   "Gradle-jdk12",
+  "Gradle-jdk14",
+  "Gradle-jdk16",
+  "Gradle-jdk17",
   "Maven",
   "Maven-3-jdk-11",
   "Node",
   "PHP",
   "Python",
+  "Python-3.6",
+  "Python-3.7",
+  "Python-3.8",
   "Ruby",
   "Scala",
 ]

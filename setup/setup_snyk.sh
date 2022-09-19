@@ -21,6 +21,8 @@ die () {
 
 [ "$#" -eq 2 ] || die "Setup Snyk requires two argument, $# provided"
 
+cd "$(mktemp -d)"
+
 echo "Installing the $1 version of Snyk on $2"
 
 if [ "$1" == "latest" ]; then
@@ -47,6 +49,7 @@ esac
     echo "#!/bin/bash"
     echo export SNYK_INTEGRATION_NAME="GITHUB_ACTIONS"
     echo export SNYK_INTEGRATION_VERSION=\"setup \(${2}\)\"
+    echo export FORCE_COLOR=2
     echo eval snyk-${PREFIX} \$@
 } > snyk
 
@@ -58,3 +61,4 @@ wget -qO- ${URL} | grep "browser_download_url" | grep $PREFIX | cut -d '"' -f 4 
 sha256sum -c snyk-${PREFIX}.sha256
 chmod +x snyk-${PREFIX}
 sudo mv snyk-${PREFIX} /usr/local/bin
+rm -rf snyk*
