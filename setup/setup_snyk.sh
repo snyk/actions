@@ -25,11 +25,8 @@ cd "$(mktemp -d)"
 
 echo "Installing the $1 version of Snyk on $2"
 
-if [ "$1" == "latest" ]; then
-    URL="https://api.github.com/repos/snyk/snyk/releases/${1}"
-else
-    URL="https://api.github.com/repos/snyk/snyk/releases/tags/${1}"
-fi
+VERSION=$1
+BASE_URL="https://static.snyk.io/cli"
 
 case "$2" in
     Linux)
@@ -56,7 +53,8 @@ esac
 chmod +x snyk
 sudo mv snyk /usr/local/bin
 
-wget -qO- ${URL} | grep "browser_download_url" | grep $PREFIX | cut -d '"' -f 4 | wget --progress=bar:force:noscroll -i -
+wget --progress=bar:force:noscroll "$BASE_URL/$VERSION/snyk-${PREFIX}"
+wget --progress=bar:force:noscroll "$BASE_URL/$VERSION/snyk-${PREFIX}.sha256"
 
 sha256sum -c snyk-${PREFIX}.sha256
 chmod +x snyk-${PREFIX}
