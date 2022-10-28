@@ -84,39 +84,6 @@ jobs:
           sarif_file: snyk.sarif
 ```
 
-## Compatibility with `actions/set-up-java`
-
-The official GitHub action to set up Java exports the environment variable `JAVA_HOME` which collides with the `JAVA_HOME` variable set inside the Snyk image.
-
-This causes the Snyk step to fail as it is unable to resolve the `JAVA_HOME` directory inside the container.
-
-In order to ignore the `JAVA_HOME` environment variable set by the `actions/set-up-java` we would need to enforce the value expected by the Snyk container as seen below:
-
-```yaml
-steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Set up Java
-        uses: actions/setup-java@v3 # Exports JAVA_HOME variable incompatible with Snyk actions
-        with:
-          java-version: 17
-          distribution: temurin
-      - name: Set up Gradle
-        uses: gradle/gradle-build-action@v2
-        with:
-          gradle-version: 7.3
-
-      # Run your Gradle commands
-
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/gradle-jdk17@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-          JAVA_HOME: /opt/java/openjdk # Enforce directory expected by the Snyk container
-        with:
-          args: --severity-threshold=high
-```
-
 Made with 💜 by Snyk
 
 [cli-gh]: https://github.com/snyk/snyk 'Snyk CLI'
