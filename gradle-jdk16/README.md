@@ -3,18 +3,11 @@
 A [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.co/SnykGH) to check for
 vulnerabilities in your Gradle-jdk16 projects. This Action is based on the [Snyk CLI][cli-gh] and you can use [all of its options and capabilities][cli-ref] with the `args`.
 
- > Note: The examples shared below reflect how Snyk github actions can be used. Snyk requires Python to have downloaded the dependencies before running or triggering the Snyk checks.
-                          > The Python image checks and installs deps only if the manifest files are present in the current path (from where action is being triggered)
-                          > 1. If pip is present on the current path , and Snyk finds a requirements.txt file, then Snyk runs pip install -r requirements.txt.
-                          > 2. If pipenv is present on the current path, and Snyk finds a Pipfile without a Pipfile.lock, then Snyk runs pipenv update
-                          > 3. If pyproject.toml is present in the current path and Snyk does not find poetry.lock then Snyk runs pip install poetry
-                          >
-                          > If manifest files are present under any location other root then they MUST be installed prior to running Snyk.
 
 You can use the Action as follows:
 
 ```yaml
-name: Example workflow for Python using Snyk
+name: Example workflow for Gradle using Snyk
 on: push
 jobs:
   security:
@@ -29,7 +22,7 @@ jobs:
 
 ## Properties
 
-The Snyk Python Action has properties which are passed to the underlying image. These are passed to the action using `with`.
+The Snyk Gradle Action has properties which are passed to the underlying image. These are passed to the action using `with`.
 
 | Property | Default | Description                                                                                         |
 | -------- | ------- | --------------------------------------------------------------------------------------------------- |
@@ -40,7 +33,7 @@ The Snyk Python Action has properties which are passed to the underlying image. 
 For example, you can choose to only report on high severity vulnerabilities.
 
 ```yaml
-name: Example workflow for Python using Snyk
+name: Example workflow for Gradle using Snyk
 on: push
 jobs:
   security:
@@ -64,7 +57,7 @@ Using `--sarif-file-output` [Snyk CLI flag][cli-ref] and the [official GitHub SA
 The Snyk Action will fail when vulnerabilities are found. This would prevent the SARIF upload action from running, so we need to introduce a [continue-on-error](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepscontinue-on-error) option like this:
 
 ```yaml
-name: Example workflow for Python using Snyk
+name: Example workflow for Gradle using Snyk
 on: push
 jobs:
   security:
