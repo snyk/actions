@@ -1,5 +1,5 @@
 name: "Snyk Golang"
-description: "Check your Golang application for vulnerabilties using Snyk. DEPRECATED: Use version-specific images going forward."
+description: "Check your Golang application for vulnerabilties using Snyk"
 author: "Gareth Rushgrove"
 branding:
   icon: "alert-triangle"
@@ -15,7 +15,7 @@ inputs:
     default: false
 runs:
   using: "docker"
-  image: "docker://snyk/snyk:golang"
+  image: "docker://snyk/snyk:golang-1.19"
   env:
     FORCE_COLOR: 2
     SNYK_INTEGRATION_NAME: GITHUB_ACTIONS
