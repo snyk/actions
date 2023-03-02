@@ -6,7 +6,6 @@ A set of [GitHub Action](https://github.com/features/actions) for using [Snyk](h
 vulnerabilities in your GitHub projects. A different action is required depending on which language or build tool
 you are using. We currently support:
 
-
 - [CocoaPods](cocoapods)
 - [dotNET](dotnet)
 - [Golang](golang)
@@ -72,7 +71,7 @@ Note that GitHub Actions will not pass on secrets set in the repository to forks
 
 ### Bring your own development environment
 
-The per-language Actions automatically install all the required development tools for Snyk to determine the correct dependencies and hence vulnerabilities from different language environments. If you have a workflow where you already have those installed then you can instead use the `snyk/actions/setup` Action to just install [Snyk CLI][cli-gh]:
+The per-language Actions automatically install all the required development tools for Snyk to determine the correct dependencies and hence vulnerabilities from different language environments. If you have a workflow where you already have those installed then you can instead use the `snyk/actions/setup` action to just install [Snyk CLI][cli-gh]:
 
 ```yaml
 name: Snyk example
@@ -85,7 +84,7 @@ jobs:
       - uses: snyk/actions/setup@master
       - uses: actions/setup-go@v1
         with:
-          go-version: '1.13'
+          go-version: "1.13"
       - name: Snyk monitor
         run: snyk test
         env:
@@ -135,5 +134,5 @@ jobs:
 
 Made with 💜 by Snyk
 
-[cli-gh]: https://github.com/snyk/snyk 'Snyk CLI'
-[cli-ref]: https://docs.snyk.io/snyk-cli/cli-reference 'Snyk CLI Reference documentation'
+[cli-gh]: https://github.com/snyk/snyk "Snyk CLI"
+[cli-ref]: https://docs.snyk.io/snyk-cli/cli-reference "Snyk CLI Reference documentation"
