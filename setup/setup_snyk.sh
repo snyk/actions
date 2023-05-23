@@ -53,8 +53,8 @@ esac
 chmod +x snyk
 sudo mv snyk /usr/local/bin
 
-wget --progress=bar:force:noscroll "$BASE_URL/$VERSION/snyk-${PREFIX}"
-wget --progress=bar:force:noscroll "$BASE_URL/$VERSION/snyk-${PREFIX}.sha256"
+curl --compressed --retry 2 --output snyk-${PREFIX} "$BASE_URL/$VERSION/snyk-${PREFIX}" 
+curl --compressed --retry 2 --output snyk-${PREFIX}.sha256 "$BASE_URL/$VERSION/snyk-${PREFIX}.sha256"
 
 sha256sum -c snyk-${PREFIX}.sha256
 chmod +x snyk-${PREFIX}
