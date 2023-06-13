@@ -133,6 +133,25 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 ```
 
+### Using a custom container image for actions
+
+This example is useful if you wish to pull the images used by the actions from an on-premise container registry. You must ensure that you copy the upstream images to your local container registry, and then in your actions you can specify your custom image. If no image is specified, the default (hosted in DockerHub) will be used.
+```yaml
+name: Example workflow using Snyk
+on: push
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          docker_image: my-onprem-image:golang
+```
+
 Made with 💜 by Snyk
 
 [cli-gh]: https://github.com/snyk/snyk 'Snyk CLI'
