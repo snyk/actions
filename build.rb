@@ -21,6 +21,8 @@ require 'fileutils'
   "Gradle-jdk17",
   "Maven",
   "Maven-3-jdk-11",
+  "Maven-3-jdk-17",
+  "Maven-3-jdk-20",
   "Node",
   "PHP",
   "Python",
