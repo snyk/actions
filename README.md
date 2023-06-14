@@ -18,6 +18,8 @@ you are using. We currently support:
 - [Gradle-jdk17](gradle-jdk17)
 - [Maven](maven)
 - [Maven-3-jdk-11](maven-3-jdk-11)
+- [Maven-3-jdk-17](maven-3-jdk-17)
+- [Maven-3-jdk-20](maven-3-jdk-20)
 - [Node](node)
 - [PHP](php)
 - [Python](python)
