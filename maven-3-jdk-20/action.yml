@@ -1,6 +1,6 @@
 name: "Snyk Maven (3-jdk-20)"
 description: "Check your Maven application for vulnerabilties using Snyk"
-author: "Brian Vermeer"
+author: "Gareth Rushgrove"
 branding:
   icon: "alert-triangle"
   color: "yellow"
