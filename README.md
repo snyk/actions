@@ -15,14 +15,19 @@ you are using. We currently support:
 - [Gradle-jdk12](gradle-jdk12)
 - [Gradle-jdk14](gradle-jdk14)
 - [Gradle-jdk16](gradle-jdk16)
+- [Gradle-jdk17](gradle-jdk17)
 - [Maven](maven)
 - [Maven-3-jdk-11](maven-3-jdk-11)
+- [Maven-3-jdk-17](maven-3-jdk-17)
+- [Maven-3-jdk-20](maven-3-jdk-20)
 - [Node](node)
 - [PHP](php)
 - [Python](python)
 - [Python-3.6](python-3.6)
 - [Python-3.7](python-3.7)
 - [Python-3.8](python-3.8)
+- [Python-3.9](python-3.9)
+- [Python-3.10](python-3.10)
 - [Ruby](ruby)
 - [Scala](scala)
 - [Docker](docker)
@@ -133,4 +138,4 @@ jobs:
 Made with 💜 by Snyk
 
 [cli-gh]: https://github.com/snyk/snyk 'Snyk CLI'
-[cli-ref]: https://snyk.io/docs/using-snyk?utm_campaign=docs&utm_medium=github&utm_source=cli 'Snyk CLI Reference documentation'
+[cli-ref]: https://docs.snyk.io/snyk-cli/cli-reference 'Snyk CLI Reference documentation'

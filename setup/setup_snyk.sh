@@ -21,13 +21,12 @@ die () {
 
 [ "$#" -eq 2 ] || die "Setup Snyk requires two argument, $# provided"
 
+cd "$(mktemp -d)"
+
 echo "Installing the $1 version of Snyk on $2"
 
-if [ "$1" == "latest" ]; then
-    URL="https://api.github.com/repos/snyk/snyk/releases/${1}"
-else
-    URL="https://api.github.com/repos/snyk/snyk/releases/tags/${1}"
-fi
+VERSION=$1
+BASE_URL="https://static.snyk.io/cli"
 
 case "$2" in
     Linux)
@@ -47,14 +46,17 @@ esac
     echo "#!/bin/bash"
     echo export SNYK_INTEGRATION_NAME="GITHUB_ACTIONS"
     echo export SNYK_INTEGRATION_VERSION=\"setup \(${2}\)\"
+    echo export FORCE_COLOR=2
     echo eval snyk-${PREFIX} \$@
 } > snyk
 
 chmod +x snyk
 sudo mv snyk /usr/local/bin
 
-wget -qO- ${URL} | grep "browser_download_url" | grep $PREFIX | cut -d '"' -f 4 | wget --progress=bar:force:noscroll -i -
+curl --compressed --retry 2 --output snyk-${PREFIX} "$BASE_URL/$VERSION/snyk-${PREFIX}" 
+curl --compressed --retry 2 --output snyk-${PREFIX}.sha256 "$BASE_URL/$VERSION/snyk-${PREFIX}.sha256"
 
 sha256sum -c snyk-${PREFIX}.sha256
 chmod +x snyk-${PREFIX}
 sudo mv snyk-${PREFIX} /usr/local/bin
+rm -rf snyk*
