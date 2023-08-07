@@ -60,6 +60,12 @@ name: Example workflow for Node using Snyk
 on: push
 jobs:
   security:
+    permissions:
+      # required for all workflows
+      security-events: write
+      # only required for workflows in private repositories
+      actions: read
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
