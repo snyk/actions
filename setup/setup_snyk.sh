@@ -25,38 +25,24 @@ cd "$(mktemp -d)"
 
 echo "Installing the $1 version of Snyk on $2"
 
-VERSION=$1
-BASE_URL="https://static.snyk.io/cli"
-
-case "$2" in
-    Linux)
-        PREFIX=linux
-        ;;
-    Windows)
-        die "Windows runner not currently supported"
-        ;;
-    macOS)
-        PREFIX=macos
-        ;;
-    *)
-        die "Invalid running specified: $2"
-esac
-
+VERSION=$(echo "$1" | cut -d'v' -f2)
+BINARY_NAME=snyk-actual
 {
     echo "#!/bin/bash"
     echo export SNYK_INTEGRATION_NAME="GITHUB_ACTIONS"
-    echo export SNYK_INTEGRATION_VERSION=\"setup \(${2}\)\"
+    echo export SNYK_INTEGRATION_VERSION=\"setup \("${2}"\)\"
     echo export FORCE_COLOR=2
-    echo eval snyk-${PREFIX} \$@
+    echo eval $BINARY_NAME \$@
 } > snyk
 
 chmod +x snyk
 sudo mv snyk /usr/local/bin
 
-curl --compressed --retry 2 --output snyk-${PREFIX} "$BASE_URL/$VERSION/snyk-${PREFIX}" 
-curl --compressed --retry 2 --output snyk-${PREFIX}.sha256 "$BASE_URL/$VERSION/snyk-${PREFIX}.sha256"
+curl -sSL --compressed --output install-snyk.py https://raw.githubusercontent.com/snyk/cli/master/scripts/install-snyk.py
+chmod +x install-snyk.py
+PIP_BREAK_SYSTEM_PACKAGES=1 pip3 install requests --quiet || PIP_BREAK_SYSTEM_PACKAGES=1 pip install requests --quiet
+python3 install-snyk.py "$VERSION" || python install-snyk.py "$VERSION"
 
-sha256sum -c snyk-${PREFIX}.sha256
-chmod +x snyk-${PREFIX}
-sudo mv snyk-${PREFIX} /usr/local/bin
+sudo mv snyk /usr/local/bin/"$BINARY_NAME"
 rm -rf snyk*
+rm -f install-snyk.py
