@@ -11,5 +11,8 @@ jobs:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
     steps:
       - uses: actions/checkout@v3
-      - run:
+      - name: test setup script
+        shell: bash
+        run: |
           setup/setup_snyk.sh latest ${{ matrix.os }}
+          snyk -v
