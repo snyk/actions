@@ -36,13 +36,14 @@ BINARY_NAME=snyk-actual
 } > snyk
 
 chmod +x snyk
-sudo mv snyk /usr/local/bin
+sudo mv snyk /usr/local/bin || mv snyk /c/Windows/System32
+
 
 curl -sSL --compressed --output install-snyk.py https://raw.githubusercontent.com/snyk/cli/master/scripts/install-snyk.py
 chmod +x install-snyk.py
 PIP_BREAK_SYSTEM_PACKAGES=1 pip3 install requests --quiet || PIP_BREAK_SYSTEM_PACKAGES=1 pip install requests --quiet
 python3 install-snyk.py "$VERSION" || python install-snyk.py "$VERSION"
 
-sudo mv snyk /usr/local/bin/"$BINARY_NAME"
+sudo mv snyk /usr/local/bin/"$BINARY_NAME" || mv snyk /c/Windows/System32/"$BINARY_NAME"
 rm -rf snyk*
 rm -f install-snyk.py
