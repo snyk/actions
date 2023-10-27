@@ -27,6 +27,7 @@ echo "Installing the $1 version of Snyk on $2"
 
 VERSION=$1
 BASE_URL="https://static.snyk.io/cli"
+SNYK_PATH="${HOME}/.local/snyk/bin"
 
 case "$2" in
     Linux)
@@ -42,6 +43,8 @@ case "$2" in
         die "Invalid running specified: $2"
 esac
 
+mkdir -p "${SNYK_PATH}" 2>/dev/null
+
 {
     echo "#!/bin/bash"
     echo export SNYK_INTEGRATION_NAME="GITHUB_ACTIONS"
@@ -51,12 +54,15 @@ esac
 } > snyk
 
 chmod +x snyk
-sudo mv snyk /usr/local/bin
+mv snyk "${SNYK_PATH}"
 
-curl --compressed --retry 2 --output snyk-${PREFIX} "$BASE_URL/$VERSION/snyk-${PREFIX}" 
+curl --compressed --retry 2 --output snyk-${PREFIX} "$BASE_URL/$VERSION/snyk-${PREFIX}"
 curl --compressed --retry 2 --output snyk-${PREFIX}.sha256 "$BASE_URL/$VERSION/snyk-${PREFIX}.sha256"
 
 sha256sum -c snyk-${PREFIX}.sha256
 chmod +x snyk-${PREFIX}
-sudo mv snyk-${PREFIX} /usr/local/bin
+mv snyk-${PREFIX} "${SNYK_PATH}"
 rm -rf snyk*
+
+echo "${SNYK_PATH}" >> "${GITHUB_PATH}"
+export PATH="${SNYK_PATH}":"${PATH}"
