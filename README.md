@@ -33,6 +33,7 @@ you are using. We currently support:
 - [Ruby](ruby)
 - [Scala](scala)
 - [SBT1.10.0-Scala3.4.2](sbt1.10.0-scala3.4.2)
+- [Swift](swift)
 - [Docker](docker)
 - [Infrastructure as Code](iac)
 - [Setup](setup)

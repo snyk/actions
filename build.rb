@@ -36,6 +36,7 @@ require 'fileutils'
   "Ruby",
   "Scala",
   "SBT1.10.0-Scala3.4.2",
+  "Swift",
 ]
 
 templatename = File.join("_templates", "BASE.md.erb")
