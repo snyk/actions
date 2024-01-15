@@ -11,4 +11,4 @@ workflows:
           name: Scan repository for secrets
           context:
             - snyk-bot-slack
-          channel: hammerhead-alerts
+          channel: cli-alerts
