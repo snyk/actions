@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: actions
+  annotations:
+    github.com/project-slug: snyk/actions
+    github.com/team-slug: snyk/cli
+spec:
+  type: supply-chain-tooling
+  lifecycle: "-"
+  owner: cli
