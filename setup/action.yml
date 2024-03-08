@@ -15,6 +15,9 @@ outputs:
 runs:
   using: "composite"
   steps:
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
     - run: ${{ github.action_path }}/setup_snyk.sh ${{ inputs.snyk-version }} ${{ runner.os }}
       shell: bash
     - id: version
