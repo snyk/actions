@@ -20,6 +20,8 @@ you are using. We currently support:
 - [Maven-3-jdk-11](maven-3-jdk-11)
 - [Maven-3-jdk-17](maven-3-jdk-17)
 - [Maven-3-jdk-20](maven-3-jdk-20)
+- [Maven-3-jdk-21](maven-3-jdk-21)
+- [Maven-3-jdk-22](maven-3-jdk-22)
 - [Node](node)
 - [PHP](php)
 - [Python](python)
