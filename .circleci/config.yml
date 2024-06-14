@@ -1,14 +1,26 @@
 version: 2.1
 
 orbs:
-  prodsec: snyk/prodsec-orb@1.0
+  prodsec: snyk/prodsec-orb@1
   
+jobs:
+  security-scans:
+    resource_class: small
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - prodsec/security_scans:
+          mode: auto
+
 workflows:
-  version: 2
-  CICD:
+  cicd:
     jobs:
       - prodsec/secrets-scan:
-          name: Scan repository for secrets
+          name: scan repository for secrets
           context:
             - snyk-bot-slack
-          channel: hammerhead-alerts
+          channel: cli-alerts
+
+      - security-scans:
+          context: devex_cli

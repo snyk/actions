@@ -23,6 +23,8 @@ require 'fileutils'
   "Maven-3-jdk-11",
   "Maven-3-jdk-17",
   "Maven-3-jdk-20",
+  "Maven-3-jdk-21",
+  "Maven-3-jdk-22",
   "Node",
   "PHP",
   "Python",
