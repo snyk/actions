@@ -27,6 +27,7 @@ echo "Installing the $1 version of Snyk on $2"
 
 VERSION=$1
 BASE_URL="https://static.snyk.io/cli"
+SUDO_CMD="sudo"
 
 case "$2" in
     Linux)
@@ -50,13 +51,20 @@ esac
     echo eval snyk-${PREFIX} \$@
 } > snyk
 
+if ! command -v "$SUDO_CMD" &> /dev/null; then
+  echo "$SUDO_CMD is NOT installed. Trying without sudo, expecting privileges to write to '/usr/local/bin'."
+  SUDO_CMD=""
+else
+    echo "$SUDO_CMD is installed."
+fi
+
 chmod +x snyk
-sudo mv snyk /usr/local/bin
+${SUDO_CMD} mv snyk /usr/local/bin
 
 curl --compressed --retry 2 --output snyk-${PREFIX} "$BASE_URL/$VERSION/snyk-${PREFIX}" 
 curl --compressed --retry 2 --output snyk-${PREFIX}.sha256 "$BASE_URL/$VERSION/snyk-${PREFIX}.sha256"
 
 sha256sum -c snyk-${PREFIX}.sha256
 chmod +x snyk-${PREFIX}
-sudo mv snyk-${PREFIX} /usr/local/bin
+${SUDO_CMD} mv snyk-${PREFIX} /usr/local/bin
 rm -rf snyk*
