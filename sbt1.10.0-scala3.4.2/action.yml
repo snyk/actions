@@ -1,0 +1,26 @@
+name: "Snyk SBT1.10.0 (Scala3.4.2)"
+description: "Check your SBT1.10.0 application for vulnerabilties using Snyk"
+author: "Gareth Rushgrove"
+branding:
+  icon: "alert-triangle"
+  color: "yellow"
+inputs:
+  command:
+    description: "Which Snyk command to run, defaults to test"
+    default: test
+  args:
+    description: "Additional arguments to pass to Snyk"
+  json:
+    description: "Output a snyk.json file with results if running the test command"
+    default: false
+runs:
+  using: "docker"
+  image: "docker://snyk/snyk:sbt1.10.0-scala3.4.2"
+  env:
+    FORCE_COLOR: 2
+    SNYK_INTEGRATION_NAME: GITHUB_ACTIONS
+    SNYK_INTEGRATION_VERSION: sbt1.10.0-scala3.4.2
+  args:
+  - snyk
+  - ${{ inputs.command }}
+  - ${{ inputs.args }} 
