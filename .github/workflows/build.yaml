@@ -25,3 +25,14 @@ jobs:
       - uses: actions/checkout@v4
       - name: Set up Snyk CLI
         uses: ./setup/
+  test-setup-action-no-sudo:
+    name: test-setup-action-no-sudo
+    runs-on: ubuntu-latest
+    container:
+      image: debian:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install curl
+        run: apt-get update && apt-get install curl --yes
+      - name: Set up Snyk CLI
+        uses: ./setup/
