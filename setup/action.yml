@@ -8,6 +8,9 @@ inputs:
   snyk-version:
     description: "Which Snyk version to install"
     default: latest
+  os:
+    description: "Which Operating System Snyk will run on"
+    default: ${{ runner.os }}
 outputs:
   version:
     description: "The version of Snyk installed"
@@ -19,7 +22,7 @@ runs:
         echo $GITHUB_ACTION_PATH
         echo ${{ github.action_path }}
         
-        ${{ github.action_path }}/setup_snyk.sh ${{ inputs.snyk-version }} ${{ runner.os }} || $GITHUB_ACTION_PATH/setup_snyk.sh ${{ inputs.snyk-version }} ${{ runner.os }}
+        ${{ github.action_path }}/setup_snyk.sh ${{ inputs.snyk-version }} ${{ inputs.os }} || $GITHUB_ACTION_PATH/setup_snyk.sh ${{ inputs.snyk-version }} ${{ inputs.os }}
       shell: bash
     - id: version
       shell: bash
