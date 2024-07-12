@@ -39,8 +39,11 @@ case "$2" in
     macOS)
         PREFIX=macos
         ;;
+    Alpine)
+        PREFIX=alpine
+        ;;
     *)
-        die "Invalid running specified: $2"
+        die "Invalid runner specified: $2"
 esac
 
 {

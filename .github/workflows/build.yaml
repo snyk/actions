@@ -19,14 +19,31 @@ on:
 
 jobs:
   test-setup-action-in-pr:
-    name: test-setup-action-in-pr
+    name: Setup Action with Ubuntu
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Set up Snyk CLI
         uses: ./setup/
+      - name: snyk version
+        run: snyk --version
+  test-setup-action-with-alpine:
+    name: Setup Action with Alpine
+    runs-on: ubuntu-latest
+    container:
+      image: alpine:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: apk update && apk add curl bash
+      - name: Set up Snyk CLI
+        uses: ./setup/
+        with:
+          os: Alpine
+      - name: snyk version
+        run: snyk --version
   test-setup-action-no-sudo:
-    name: test-setup-action-no-sudo
+    name: Setup Action with Debian (no sudo)
     runs-on: ubuntu-latest
     container:
       image: debian:latest
@@ -36,3 +53,16 @@ jobs:
         run: apt-get update && apt-get install curl --yes
       - name: Set up Snyk CLI
         uses: ./setup/
+      - name: snyk version
+        run: snyk --version
+  test-setup-action-macos:
+    name: Setup Action with Macos
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: brew install coreutils
+      - name: Set up Snyk CLI
+        uses: ./setup/
+      - name: snyk version
+        run: snyk --version
