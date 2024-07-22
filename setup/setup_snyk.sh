@@ -19,31 +19,24 @@ die () {
     exit 1
 }
 
-[ "$#" -eq 2 ] || die "Setup Snyk requires two argument, $# provided"
+# Check if correct number of arguments is provided
+[ "$#" -eq 2 ] || die "Setup Snyk requires two arguments, $# provided"
 
 cd "$(mktemp -d)"
-
 echo "Installing the $1 version of Snyk on $2"
 
 VERSION=$1
-BASE_URL="https://static.snyk.io/cli"
+MAIN_URL="https://downloads.snyk.io/cli"
+BACKUP_URL="https://static.snyk.io/cli"
 SUDO_CMD="sudo"
 
+# Determine the prefix based on the platform
 case "$2" in
-    Linux)
-        PREFIX=linux
-        ;;
-    Windows)
-        die "Windows runner not currently supported"
-        ;;
-    macOS)
-        PREFIX=macos
-        ;;
-    Alpine)
-        PREFIX=alpine
-        ;;
-    *)
-        die "Invalid runner specified: $2"
+    Linux)   PREFIX=linux ;;
+    macOS)   PREFIX=macos ;;
+    Alpine)  PREFIX=alpine ;;
+    Windows) die "Windows runner not currently supported" ;;
+    *)       die "Invalid runner specified: $2" ;;
 esac
 
 {
@@ -63,11 +56,40 @@ fi
 
 chmod +x snyk
 ${SUDO_CMD} mv snyk /usr/local/bin
+# Function to download a file with fallback to backup URL
+# Parameters:
+#   $1: File name to download
+#   $2: Output file name
+download_file() {
+    # Try to download from the main URL
+    if curl -Ls --fail "$MAIN_URL/$1" -o "$2"; then
+        echo "Downloaded $1 from main URL"
+    # If main URL fails, try the backup URL
+    elif curl -Ls --fail "$BACKUP_URL/$1" -o "$2"; then
+        echo "Downloaded $1 from backup URL"
+    # If both URLs fail, return an error
+    else
+        echo "Failed to download $1 from both URLs"
+        return 1
+    fi
+}
 
-curl --compressed --retry 2 --output snyk-${PREFIX} "$BASE_URL/$VERSION/snyk-${PREFIX}" 
-curl --compressed --retry 2 --output snyk-${PREFIX}.sha256 "$BASE_URL/$VERSION/snyk-${PREFIX}.sha256"
+# Download Snyk binary
+if ! download_file "$VERSION/snyk-${PREFIX}" "snyk-${PREFIX}"; then
+    die "Failed to download Snyk binary"
+fi
 
+# Download SHA256 checksum file
+if ! download_file "$VERSION/snyk-${PREFIX}.sha256" "snyk-${PREFIX}.sha256"; then
+    die "Failed to download SHA256 file"
+fi
+
+# Verify the checksum
 sha256sum -c snyk-${PREFIX}.sha256
+
+# Make the binary executable
 chmod +x snyk-${PREFIX}
+
+# Move the binary to /usr/local/bin
 ${SUDO_CMD} mv snyk-${PREFIX} /usr/local/bin
 rm -rf snyk*
