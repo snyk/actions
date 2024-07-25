@@ -62,10 +62,10 @@ ${SUDO_CMD} mv snyk /usr/local/bin
 #   $2: Output file name
 download_file() {
     # Try to download from the main URL
-    if curl --compressed --retry 2 --output "$2" "$MAIN_URL/$1"; then
+    if curl --compressed --retry 2 --output "$2" "$MAIN_URL/$1?utm_source=GITHUB_ACTIONS"; then
         echo "Downloaded $1 from main URL"
     # If main URL fails, try the backup URL
-    elif curl --compressed --retry 2 --output "$2" "$BACKUP_URL/$1"; then
+    elif curl --compressed --retry 2 --output "$2" "$BACKUP_URL/$1?utm_source=GITHUB_ACTIONS"; then
         echo "Downloaded $1 from backup URL"
     # If both URLs fail, return an error
     else
