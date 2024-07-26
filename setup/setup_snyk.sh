@@ -29,6 +29,7 @@ VERSION=$1
 MAIN_URL="https://downloads.snyk.io/cli"
 BACKUP_URL="https://static.snyk.io/cli"
 SUDO_CMD="sudo"
+GH_ACTIONS="GITHUB_ACTIONS"
 
 # Determine the prefix based on the platform
 case "$2" in
@@ -41,7 +42,7 @@ esac
 
 {
     echo "#!/bin/bash"
-    echo export SNYK_INTEGRATION_NAME="GITHUB_ACTIONS"
+    echo export SNYK_INTEGRATION_NAME=\"$GH_ACTIONS\"
     echo export SNYK_INTEGRATION_VERSION=\"setup \(${2}\)\"
     echo export FORCE_COLOR=2
     echo eval snyk-${PREFIX} \$@
@@ -62,10 +63,10 @@ ${SUDO_CMD} mv snyk /usr/local/bin
 #   $2: Output file name
 download_file() {
     # Try to download from the main URL
-    if curl --compressed --retry 2 --output "$2" "$MAIN_URL/$1?utm_source=GITHUB_ACTIONS"; then
+    if curl --compressed --retry 2 --output "$2" "$MAIN_URL/$1?utm_source="$GH_ACTIONS; then
         echo "Downloaded $1 from main URL"
     # If main URL fails, try the backup URL
-    elif curl --compressed --retry 2 --output "$2" "$BACKUP_URL/$1?utm_source=GITHUB_ACTIONS"; then
+    elif curl --compressed --retry 2 --output "$2" "$BACKUP_URL/$1?utm_source="$GH_ACTIONS; then
         echo "Downloaded $1 from backup URL"
     # If both URLs fail, return an error
     else
