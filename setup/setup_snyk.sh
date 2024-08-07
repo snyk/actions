@@ -67,7 +67,7 @@ download_file() {
         echo "Downloaded from $MAIN_URL/$1"
     # If main URL fails, try the backup URL
     elif curl --compressed --retry 2 --output "$2" "$BACKUP_URL/$1?utm_source="$GH_ACTIONS; then
-        echo "Downloaded $1 from backup URL"
+        echo "Downloaded from $BACKUP_URL/$1"
     # If both URLs fail, return an error
     else
         echo "Failed to download $1 from both URLs"
