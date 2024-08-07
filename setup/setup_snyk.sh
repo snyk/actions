@@ -64,7 +64,7 @@ ${SUDO_CMD} mv snyk /usr/local/bin
 download_file() {
     # Try to download from the main URL
     if curl --compressed --retry 2 --output "$2" "$MAIN_URL/$1?utm_source="$GH_ACTIONS; then
-        echo "Downloaded $1 from main URL"
+        echo "Downloaded from $MAIN_URL/$1"
     # If main URL fails, try the backup URL
     elif curl --compressed --retry 2 --output "$2" "$BACKUP_URL/$1?utm_source="$GH_ACTIONS; then
         echo "Downloaded $1 from backup URL"
