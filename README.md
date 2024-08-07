@@ -142,3 +142,7 @@ Made with 💜 by Snyk
 
 [cli-gh]: https://github.com/snyk/snyk 'Snyk CLI'
 [cli-ref]: https://docs.snyk.io/snyk-cli/cli-reference 'Snyk CLI Reference documentation'
+
+## End of Life Policy
+
+Please note that some of the current actions might be impacted by our End of Life (EOL) policy. To stay up to date with the latest information and ensure continued functionality, visit our [user documentation](https://docs.snyk.io/scm-ide-and-ci-cd-integrations/snyk-ci-cd-integrations/eol-policy-snyk-images).
