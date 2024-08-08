@@ -1,7 +1,7 @@
-# Snyk Python (3.10)  Action
+# Snyk Python (3.11)  Action
 
 A [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.co/SnykGH) to check for
-vulnerabilities in your Python-3.10 projects. This Action is based on the [Snyk CLI][cli-gh] and you can use [all of its options and capabilities][cli-ref] with the `args`.
+vulnerabilities in your Python-3.11 projects. This Action is based on the [Snyk CLI][cli-gh] and you can use [all of its options and capabilities][cli-ref] with the `args`.
 
  > Note: The examples shared below reflect how Snyk github actions can be used. Snyk requires Python to have downloaded the dependencies before running or triggering the Snyk checks.
                           > The Python image checks and installs deps only if the manifest files are present in the current path (from where action is being triggered)
@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/python-3.10@master
+        uses: snyk/actions/python-3.11@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 ```
@@ -48,7 +48,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/python-3.10@master
+        uses: snyk/actions/python-3.11@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
@@ -72,7 +72,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/python-3.10@master
+        uses: snyk/actions/python-3.11@master
         continue-on-error: true # To make sure that SARIF upload gets called
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
