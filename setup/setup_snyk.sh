@@ -67,7 +67,7 @@ ${SUDO_CMD} mv snyk /usr/local/bin
 #   $2: Output file name
 download_file() {
     echo_with_timestamp "Downloading Snyk binary"
-    if curl -D - --compressed --retry 2 --output "$2" "$1/$2?utm_source="$GH_ACTIONS; then
+    if curl --fail -D - --compressed --retry 2 --output "$2" "$1/$2?utm_source="$GH_ACTIONS; then
         echo_with_timestamp "Downloaded from $1/$2?utm_source=$GH_ACTIONS"
     else
         echo_with_timestamp "Failed to download from $1/$2?utm_source=$GH_ACTIONS"
@@ -75,7 +75,7 @@ download_file() {
     fi
 
     echo_with_timestamp "Downloading Snyk binary shasum"
-    if curl -D - --compressed --retry 2 --output "$2.sha256" "$1/$2.sha256?utm_source="$GH_ACTIONS; then
+    if curl --fail -D - --compressed --retry 2 --output "$2.sha256" "$1/$2.sha256?utm_source="$GH_ACTIONS; then
         echo_with_timestamp "Downloaded from $1/$2.sha256?utm_source=$GH_ACTIONS"
     else
         echo_with_timestamp "Failed to download from $1/$2.sha256?utm_source=$GH_ACTIONS"
