@@ -45,11 +45,11 @@ case "$2" in
 esac
 
 {
-    echo_with_timestamp "#!/bin/bash"
-    echo_with_timestamp export SNYK_INTEGRATION_NAME=\"$GH_ACTIONS\"
-    echo_with_timestamp export SNYK_INTEGRATION_VERSION=\"setup \(${2}\)\"
-    echo_with_timestamp export FORCE_COLOR=2
-    echo_with_timestamp eval snyk-${PREFIX} \$@
+    echo "#!/bin/bash"
+    echo export SNYK_INTEGRATION_NAME=\"$GH_ACTIONS\"
+    echo export SNYK_INTEGRATION_VERSION=\"setup \(${2}\)\"
+    echo export FORCE_COLOR=2
+    echo eval snyk-${PREFIX} \$@
 } > snyk
 
 if ! command -v "$SUDO_CMD" &> /dev/null; then
@@ -63,30 +63,33 @@ chmod +x snyk
 ${SUDO_CMD} mv snyk /usr/local/bin
 # Function to download a file with fallback to backup URL
 # Parameters:
-#   $1: File name to download
+#   $1: Download URL
 #   $2: Output file name
 download_file() {
-    # Try to download from the main URL
-    if curl --compressed --retry 2 --output "$2" "$MAIN_URL/$1?utm_source="$GH_ACTIONS; then
-        echo_with_timestamp "Downloaded from $MAIN_URL/$1?utm_source=$GH_ACTIONS"
-    # If main URL fails, try the backup URL
-    elif curl --compressed --retry 2 --output "$2" "$BACKUP_URL/$1?utm_source="$GH_ACTIONS; then
-        echo_with_timestamp "Downloaded from $BACKUP_URL/$1?utm_source=$GH_ACTIONS"
-    # If both URLs fail, return an error
+    echo_with_timestamp "Downloading Snyk binary"
+    if curl --compressed --retry 2 --output "$2" "$1/$2?utm_source="$GH_ACTIONS; then
+        echo_with_timestamp "Downloaded from $1/$2?utm_source=$GH_ACTIONS"
     else
-        echo_with_timestamp "Failed to download $1 from both URLs"
+        echo_with_timestamp "Failed to download from $1/$2?utm_source=$GH_ACTIONS"
+        return 1
+    fi
+
+    echo_with_timestamp "Downloading Snyk binary shasum"
+    if curl --compressed --retry 2 --output "$2.sha256" "$1/$2.sha256?utm_source="$GH_ACTIONS; then
+        echo_with_timestamp "Downloaded from $1/$2.sha256?utm_source=$GH_ACTIONS"
+    else
+        echo_with_timestamp "Failed to download from $1/$2.sha256?utm_source=$GH_ACTIONS"
         return 1
     fi
 }
 
-echo_with_timestamp "Download Snyk binary"
-if ! download_file "$VERSION/snyk-${PREFIX}" "snyk-${PREFIX}"; then
-    die "Failed to download Snyk binary"
-fi
-
-echo_with_timestamp "Download SHA256 checksum file"
-if ! download_file "$VERSION/snyk-${PREFIX}.sha256" "snyk-${PREFIX}.sha256"; then
-    die "Failed to download SHA256 file"
+if ! download_file "$MAIN_URL/$VERSION" "snyk-${PREFIX}"; then
+    echo_with_timestamp "Failed to download Snyk files"
+    
+    echo_with_timestamp "Retrying download with secondary URL"
+    if ! download_file "$BACKUP_URL/$VERSION" "snyk-${PREFIX}"; then
+        die "Failed to download Snyk files"
+    fi
 fi
 
 # Verify the checksum
@@ -102,12 +105,12 @@ if ! sha256sum -c snyk-${PREFIX}.sha256; then
 fi
 
 
-echo_with_timestamp "Moving and cleaning files"
 # Make the binary executable
 chmod +x snyk-${PREFIX}
 
+echo_with_timestamp "Moving and cleaning files"
 # Move the binary to /usr/local/bin
 ${SUDO_CMD} mv snyk-${PREFIX} /usr/local/bin
 rm -rf snyk*
 
-echo_with_timestamp "Finished"
+echo_with_timestamp "Installed Snyk v$(snyk -v)"
