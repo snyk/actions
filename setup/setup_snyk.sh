@@ -66,42 +66,41 @@ ${SUDO_CMD} mv snyk /usr/local/bin
 #   $1: Download URL
 #   $2: Output file name
 download_file() {
-    echo_with_timestamp "Downloading Snyk binary"
+    echo_with_timestamp "Downloading files from $1"
     if curl --fail -D - --compressed --retry 2 --output "$2" "$1/$2?utm_source="$GH_ACTIONS; then
-        echo_with_timestamp "Downloaded from $1/$2?utm_source=$GH_ACTIONS"
+        echo_with_timestamp "Downloaded binary from $1/$2?utm_source=$GH_ACTIONS"
     else
-        echo_with_timestamp "Failed to download from $1/$2?utm_source=$GH_ACTIONS"
+        echo_with_timestamp "Failed to download binary from $1/$2?utm_source=$GH_ACTIONS"
         return 1
     fi
 
-    echo_with_timestamp "Downloading Snyk binary shasum"
     if curl --fail -D - --compressed --retry 2 --output "$2.sha256" "$1/$2.sha256?utm_source="$GH_ACTIONS; then
-        echo_with_timestamp "Downloaded from $1/$2.sha256?utm_source=$GH_ACTIONS"
+        echo_with_timestamp "Downloaded shasum from $1/$2.sha256?utm_source=$GH_ACTIONS"
     else
-        echo_with_timestamp "Failed to download from $1/$2.sha256?utm_source=$GH_ACTIONS"
+        echo_with_timestamp "Failed to download shasum from $1/$2.sha256?utm_source=$GH_ACTIONS"
+        return 1
+    fi
+
+    echo_with_timestamp "Validating shasum"
+    if ! sha256sum -c snyk-${PREFIX}.sha256; then
+        echo_with_timestamp "Actual: "
+        sha256sum snyk-${PREFIX}
+
+        echo_with_timestamp "Expected: "
+        cat snyk-${PREFIX}.sha256
+
+        echo_with_timestamp "Shasum validation failed"
         return 1
     fi
 }
 
 if ! download_file "$MAIN_URL/$VERSION" "snyk-${PREFIX}"; then
-    echo_with_timestamp "Failed to download Snyk files"
+    echo_with_timestamp "Failed to download and validate Snyk files"
     
     echo_with_timestamp "Retrying download with secondary URL"
     if ! download_file "$BACKUP_URL/$VERSION" "snyk-${PREFIX}"; then
-        die "Failed to download Snyk files"
+        die "Failed to download and validate Snyk files"
     fi
-fi
-
-# Verify the checksum
-echo_with_timestamp "Validating shasum"
-if ! sha256sum -c snyk-${PREFIX}.sha256; then
-    echo_with_timestamp "Actual: "
-    sha256sum snyk-${PREFIX}
-
-    echo_with_timestamp "Expected: "
-    cat snyk-${PREFIX}.sha256
-
-    die "Shasum validation failed"
 fi
 
 
