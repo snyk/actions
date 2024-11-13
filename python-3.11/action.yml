@@ -10,6 +10,9 @@ inputs:
     default: test
   args:
     description: "Additional arguments to pass to Snyk"
+  requirements-file:
+    description: "Requirements file with python packages"
+    default: requirements.txt
   json:
     description: "Output a snyk.json file with results if running the test command"
     default: false
@@ -20,6 +23,7 @@ runs:
     FORCE_COLOR: 2
     SNYK_INTEGRATION_NAME: GITHUB_ACTIONS
     SNYK_INTEGRATION_VERSION: python-3.11
+    COMMAND: pip install -r ${{ inputs.requirements-file }}
   args:
   - snyk
   - ${{ inputs.command }}
