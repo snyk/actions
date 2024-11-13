@@ -23,6 +23,7 @@ runs:
     FORCE_COLOR: 2
     SNYK_INTEGRATION_NAME: GITHUB_ACTIONS
     SNYK_INTEGRATION_VERSION: python-3.11
+    INPUT_REQUIREMENTS-FILE: ${{ inputs.requirements-file }}
     COMMAND: pip install -r ${{ inputs.requirements-file }}
   args:
   - snyk
