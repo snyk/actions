@@ -1,6 +1,6 @@
 name: "Snyk<% if @variant != "Node"%> <%= @name %><% if @ident %> (<%= @ident %>)<% end %><% end %>"
-description: "Check your <%= @name %> application for vulnerabilties using Snyk"
-author: "Gareth Rushgrove"
+description: "Check your <%= @variant == "Node" && @is_root ? "applications" : "#{@name} application" %> for vulnerabilities using Snyk"
+author: "Snyk Ltd"
 branding:
   icon: "alert-triangle"
   color: "yellow"
@@ -23,4 +23,4 @@ runs:
   args:
   - snyk
   - ${{ inputs.command }}
-  - ${{ inputs.args }} 
+  - ${{ inputs.args }}
