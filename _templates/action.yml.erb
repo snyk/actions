@@ -1,5 +1,5 @@
 name: "Snyk<% if @variant != "Node"%> <%= @name %><% if @ident %> (<%= @ident %>)<% end %><% end %>"
-description: "Check your <%= @name %> application for vulnerabilities using Snyk"
+description: "Check your <%= @variant == "Node" && @is_root ? "applications" : "#{@name} application" %> for vulnerabilities using Snyk"
 author: "Snyk Ltd"
 branding:
   icon: "alert-triangle"

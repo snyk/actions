@@ -81,9 +81,13 @@ class ActionGenerator
 
   def generate_root_action
     puts "Generating root Action"
-    # Currently in order to submit Actions to the marketplace you need to have a file
-    # called action.yml in the root of your directory
-    FileUtils.cp("node/action.yml", ".")
+    # Generate root action.yml using the Node variant but marked as root
+    render_template("action.yml.erb", "action.yml") do |erb|
+      erb.instance_variable_set(:@variant, "Node")
+      erb.instance_variable_set(:@name, "Node")
+      erb.instance_variable_set(:@ident, nil)
+      erb.instance_variable_set(:@is_root, true)
+    end
   end
 
   def render_template(template_name, output_path)
