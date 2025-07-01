@@ -1,38 +1,99 @@
-name: "Generate Snyk GitHub Actions"
+name: Generate Snyk GitHub Actions
 on:
   push:
     branches:
       - master
   workflow_dispatch:
 
+env:
+  DESTINATION_BRANCH: auto/actions-updated-${{ github.ref_name }}
+  COMMIT_MESSAGE: 'fix: synchronizing Github actions templates'
+
 jobs:
   actions:
+    name: synchronize-actions
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git user
+        run: |
+          git config --global user.name "Team CLI Bot"
+          git config --global user.email "team-cli@snyk.io"
+
+      - name: Import and configure GPG
+        env:
+          GPG_KEY: ${{ secrets.TEAM_CLI_BOT_GPG_KEY }}
+          GPG_PASSPHRASE: ${{ secrets.TEAM_CLI_BOT_GPG_PASSPHRASE }}
+        run: |
+          echo "$GPG_KEY" | gpg --batch --import
+          gpg --pinentry-mode loopback --passphrase "$GPG_PASSPHRASE" --batch --sign >/dev/null 2>&1
+
+      - name: Create or checkout destination branch
+        run: |
+          if git show-ref --verify --quiet refs/heads/${{ env.DESTINATION_BRANCH }}; then
+            echo "Branch ${{ env.DESTINATION_BRANCH }} already exists, checking out."
+            git checkout ${{ env.DESTINATION_BRANCH }}
+            echo "Cleaning it for a fresh start."
+            git reset --hard origin/master
+            exit 0
+          fi
+
+          echo "Branch ${{ env.DESTINATION_BRANCH }} does not exist, creating and checking out."
+          git checkout -b ${{ env.DESTINATION_BRANCH }}
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '2.6'
-      - name: Render latest template
+
+      - name: Render latest templates
+        run: ruby build.rb
+
+      - name: Check for changes
+        id: check_changes
         run: |
-          ruby build.rb
-      - name: Commit to repository
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_HAMMERHEAD }}
-          COMMIT_MSG: |
-            Generated new GitHub Actions templates
-            skip-checks: true
+          if [[ -z "$(git status --porcelain)" ]]; then
+            echo "No changes detected, exiting."
+            echo "continue=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          
+          echo "Changes detected:"
+          git --no-pager diff --color=always
+          echo "continue=true" >> "$GITHUB_OUTPUT"
+
+      - name: Commit and push changes (if any)
+        if: steps.check_changes.outputs.continue == 'true'
         run: |
-          # Hard-code user config
-          git config user.email "team-hammerhead@snyk.io"
-          git config user.name "Team Hammerhead"
-          git config --get-regexp "user\.(name|email)"
-          git config --global safe.directory $PWD
-          # Update origin with token
-          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-          # Checkout the branch so we can push back to it
-          git checkout master
           git add .
-          # Only commit and push if we have changes
-          git diff --quiet && git diff --staged --quiet || (git commit -m "${COMMIT_MSG}"; git push origin master)
+          git commit -S -m "${{ env.COMMIT_MESSAGE }}"
+          git push --force --set-upstream origin ${{ env.DESTINATION_BRANCH }}
+
+      - name: Create or update a pull request
+        if: steps.check_changes.outputs.continue == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.TEAM_CLI_BOT_GITHUB_PAT }}
+        run: |
+          PR_NUMBER=$(gh pr list \
+            --head "${{ env.DESTINATION_BRANCH }}" \
+            --json number \
+            --jq '.[0].number' \
+            --limit 1)
+          
+          if [ -n "$PR_NUMBER" ]; then
+            echo "PR #$PR_NUMBER already exists. Updating it."
+            echo "Pushed changes to existing PR #$PR_NUMBER."
+            exit 0
+          fi
+          
+          echo "No existing PR found. Creating a new one."
+          gh pr create \
+            --title="${{ env.COMMIT_MESSAGE }}" \
+            --body="Automatic PR controlled by a GitHub Action" \
+            --head "${{ env.DESTINATION_BRANCH }}" \
+            --base ${{ github.ref_name || 'master' }}
+  
