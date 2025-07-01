@@ -1,6 +1,6 @@
 name: "Snyk SBT1.10.0 (Scala3.4.2)"
-description: "Check your SBT1.10.0 application for vulnerabilties using Snyk"
-author: "Gareth Rushgrove"
+description: "Check your SBT1.10.0 application for vulnerabilities using Snyk"
+author: "Snyk Ltd"
 branding:
   icon: "alert-triangle"
   color: "yellow"
@@ -23,4 +23,4 @@ runs:
   args:
   - snyk
   - ${{ inputs.command }}
-  - ${{ inputs.args }} 
+  - ${{ inputs.args }}

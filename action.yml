@@ -1,6 +1,6 @@
 name: "Snyk"
 description: "Check your applications for vulnerabilities using Snyk"
-author: "Snyk Ltd."
+author: "Snyk Ltd"
 branding:
   icon: "alert-triangle"
   color: "yellow"
@@ -17,6 +17,7 @@ runs:
   using: "docker"
   image: "docker://snyk/snyk:node"
   env:
+    FORCE_COLOR: 2
     SNYK_INTEGRATION_NAME: GITHUB_ACTIONS
     SNYK_INTEGRATION_VERSION: node
   args:
