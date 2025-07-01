@@ -20,6 +20,8 @@ you are using. We currently support:
 - [Maven-3-jdk-11](maven-3-jdk-11)
 - [Maven-3-jdk-17](maven-3-jdk-17)
 - [Maven-3-jdk-20](maven-3-jdk-20)
+- [Maven-3-jdk-21](maven-3-jdk-21)
+- [Maven-3-jdk-22](maven-3-jdk-22)
 - [Node](node)
 - [PHP](php)
 - [Python](python)
@@ -30,6 +32,7 @@ you are using. We currently support:
 - [Python-3.10](python-3.10)
 - [Ruby](ruby)
 - [Scala](scala)
+- [SBT1.10.0-Scala3.4.2](sbt1.10.0-scala3.4.2)
 - [Docker](docker)
 - [Infrastructure as Code](iac)
 - [Setup](setup)
@@ -94,7 +97,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 ```
 
-The example here uses `actions/setup-go` would you would need to select the right actions to install the relevant development requirements for your project. If you are already using the same pipeline to build and test your application you're likely already doing so.
+The example here uses `actions/setup-go` you would need to select the right actions to install the relevant development requirements for your project. If you are already using the same pipeline to build and test your application you're likely already doing so.
 
 ### Getting your Snyk token
 

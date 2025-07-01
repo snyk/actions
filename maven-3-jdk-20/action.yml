@@ -1,6 +1,6 @@
 name: "Snyk Maven (3-jdk-20)"
-description: "Check your Maven application for vulnerabilties using Snyk"
-author: "Gareth Rushgrove"
+description: "Check your Maven application for vulnerabilities using Snyk"
+author: "Snyk Ltd"
 branding:
   icon: "alert-triangle"
   color: "yellow"
@@ -23,4 +23,4 @@ runs:
   args:
   - snyk
   - ${{ inputs.command }}
-  - ${{ inputs.args }} 
+  - ${{ inputs.args }}

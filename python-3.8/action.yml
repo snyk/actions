@@ -1,6 +1,6 @@
 name: "Snyk Python (3.8)"
-description: "Check your Python application for vulnerabilties using Snyk"
-author: "Gareth Rushgrove"
+description: "Check your Python application for vulnerabilities using Snyk"
+author: "Snyk Ltd"
 branding:
   icon: "alert-triangle"
   color: "yellow"
@@ -23,4 +23,4 @@ runs:
   args:
   - snyk
   - ${{ inputs.command }}
-  - ${{ inputs.args }} 
+  - ${{ inputs.args }}

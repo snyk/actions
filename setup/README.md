@@ -26,6 +26,8 @@ jobs:
 When using the Setup Action you are responsible for setting up the development environment required to run Snyk.
 In this case this is a Go project so `actions/setup-go` was used, but this would be specific to your project. The [language and frameworks guides](https://docs.github.com/en/actions/language-and-framework-guides) are a good starting point.
 
+The Setup Action requires `bash` and `curl` to be available and requires privileges to write to `/usr/local/bin`, it'll try to use `sudo` to gain these privileges. 
+
 The Snyk Setup Action has properties which are passed to the underlying image. These are
 passed to the action using `with`.
 
