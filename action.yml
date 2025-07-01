@@ -1,6 +1,6 @@
 name: "Snyk"
-description: "Check your applications for vulnerabilties using Snyk"
-author: "Gareth Rushgrove"
+description: "Check your applications for vulnerabilities using Snyk"
+author: "Snyk Ltd."
 branding:
   icon: "alert-triangle"
   color: "yellow"
@@ -22,4 +22,4 @@ runs:
   args:
   - snyk
   - ${{ inputs.command }}
-  - ${{ inputs.args }} 
+  - ${{ inputs.args }}
