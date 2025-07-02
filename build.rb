@@ -16,6 +16,7 @@ class ActionGenerator
     "Gradle-jdk14",
     "Gradle-jdk16",
     "Gradle-jdk17",
+    "Gradle-jdk21",
     "Maven",
     "Maven-3-jdk-11",
     "Maven-3-jdk-17",
