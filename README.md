@@ -31,6 +31,7 @@ you are using. We currently support:
 - [Python-3.8](python-3.8)
 - [Python-3.9](python-3.9)
 - [Python-3.10](python-3.10)
+- [Python-3.11](python-3.11)
 - [Ruby](ruby)
 - [Scala](scala)
 - [SBT1.10.0-Scala3.4.2](sbt1.10.0-scala3.4.2)
