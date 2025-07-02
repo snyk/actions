@@ -9,6 +9,7 @@ you are using. We currently support:
 
 - [CocoaPods](cocoapods)
 - [dotNET](dotnet)
+- [Elixir](elixir)
 - [Golang](golang)
 - [Gradle](gradle)
 - [Gradle-jdk11](gradle-jdk11)
