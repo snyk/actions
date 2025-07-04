@@ -1,5 +1,5 @@
-name: "Snyk"
-description: "Check your applications for vulnerabilities using Snyk"
+name: "Snyk Gradle (jdk21)"
+description: "Check your Gradle application for vulnerabilities using Snyk"
 author: "Snyk Ltd"
 branding:
   icon: "alert-triangle"
@@ -15,11 +15,11 @@ inputs:
     default: false
 runs:
   using: "docker"
-  image: "docker://snyk/snyk:node"
+  image: "docker://snyk/snyk:gradle-jdk21"
   env:
     FORCE_COLOR: 2
     SNYK_INTEGRATION_NAME: GITHUB_ACTIONS
-    SNYK_INTEGRATION_VERSION: node
+    SNYK_INTEGRATION_VERSION: gradle-jdk21
   args:
   - snyk
   - ${{ inputs.command }}
