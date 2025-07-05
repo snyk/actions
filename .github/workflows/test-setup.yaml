@@ -28,7 +28,7 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  test-various-os:
+  test-setup-linux-macos:
     name: Setup on ${{ matrix.os }}
     runs-on:
       - ${{ matrix.runner }}
@@ -54,11 +54,19 @@ jobs:
       - name: snyk version
         run: snyk --version
 
-  test-setup-action-with-alpine:
-    name: Setup on Alpine
-    runs-on: ubuntu-latest
+  test-setup-alpine:
+    name: Setup on ${{ matrix.os }}
+    runs-on:
+      - ${{ matrix.runner }}
     container:
       image: alpine:latest
+    strategy:
+      matrix:
+        include:
+          - os: Alpine x86_64
+            runner: ubuntu-24.04
+          - os: Alpine ARM64
+            runner: ubuntu-24.04-arm
     steps:
       - name: Checkout ${{ github.repository }}
         uses: actions/checkout@v4
@@ -68,10 +76,11 @@ jobs:
         uses: ./setup
         with:
           os: Alpine
+          arch: ${{ runner.arch }}
       - name: snyk version
         run: snyk --version
 
-  test-setup-action-no-sudo:
+  test-setup-debian-no-sudo:
     name: Setup on Debian (no sudo)
     runs-on: ubuntu-latest
     container:
