@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 set -e
 
 # This script takes two positional arguments. The first is the version of Snyk to install.
@@ -18,7 +18,7 @@ echo_with_timestamp() {
     echo "$(date +%Y-%m-%dT%H:%M:%SZ) $1"
 }
 
-die () {
+die() {
     echo_with_timestamp >&2 "$@"
     exit 1
 }
@@ -45,7 +45,7 @@ case "$2" in
 esac
 
 {
-    echo "#!/bin/bash"
+    echo "#!/usr/bin/env sh"
     echo export SNYK_INTEGRATION_NAME=\"$GH_ACTIONS\"
     echo export SNYK_INTEGRATION_VERSION=\"setup \(${2}\)\"
     echo export FORCE_COLOR=2
@@ -53,8 +53,8 @@ esac
 } > snyk
 
 if ! command -v "$SUDO_CMD" &> /dev/null; then
-  echo_with_timestamp "$SUDO_CMD is NOT installed. Trying without sudo, expecting privileges to write to '/usr/local/bin'."
-  SUDO_CMD=""
+    echo_with_timestamp "$SUDO_CMD is NOT installed. Trying without sudo, expecting privileges to write to '/usr/local/bin'."
+    SUDO_CMD=""
 else
     echo_with_timestamp "$SUDO_CMD is installed."
 fi
