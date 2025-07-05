@@ -27,6 +27,7 @@ jobs:
         uses: ./setup/
       - name: snyk version
         run: snyk --version
+
   test-setup-action-with-alpine:
     name: Setup Action with Alpine
     runs-on: ubuntu-latest
@@ -42,6 +43,7 @@ jobs:
           os: Alpine
       - name: snyk version
         run: snyk --version
+
   test-setup-action-no-sudo:
     name: Setup Action with Debian (no sudo)
     runs-on: ubuntu-latest
@@ -55,6 +57,7 @@ jobs:
         uses: ./setup/
       - name: snyk version
         run: snyk --version
+
   test-setup-action-macos:
     name: Setup Action with Macos
     runs-on: macos-latest
