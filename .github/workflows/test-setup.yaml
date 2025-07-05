@@ -11,61 +11,77 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+---
+name: Test Setup
 
-name: CI
 on:
-  workflow_dispatch:
   pull_request:
+    paths:
+      - .github/workflows/test-setup.yaml
+      - setup/**
+  push:
+    branches:
+      - master
+    paths:
+      - .github/workflows/test-setup.yaml
+      - setup/**
+  workflow_dispatch: {}
 
 jobs:
-  test-setup-action-in-pr:
-    name: Setup Action with Ubuntu
-    runs-on: ubuntu-latest
+  test-various-os:
+    name: Setup on ${{ matrix.os }}
+    runs-on:
+      - ${{ matrix.runner }}
+    strategy:
+      matrix:
+        include:
+          - os: Ubuntu x86_64
+            runner: ubuntu-24.04
+          - os: Ubuntu ARM64
+            runner: ubuntu-24.04-arm
+          - os: macOS x86_64
+            runner: macos-13
+          - os: macOS ARM64
+            runner: macos-15
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout ${{ github.repository }}
+        uses: actions/checkout@v4
       - name: Set up Snyk CLI
-        uses: ./setup/
+        uses: ./setup
+        with:
+          os: "${{ runner.os }}"
+          arch: "${{ runner.arch }}"
       - name: snyk version
         run: snyk --version
 
   test-setup-action-with-alpine:
-    name: Setup Action with Alpine
+    name: Setup on Alpine
     runs-on: ubuntu-latest
     container:
       image: alpine:latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout ${{ github.repository }}
+        uses: actions/checkout@v4
       - name: Install dependencies
         run: apk update && apk add curl bash
       - name: Set up Snyk CLI
-        uses: ./setup/
+        uses: ./setup
         with:
           os: Alpine
       - name: snyk version
         run: snyk --version
 
   test-setup-action-no-sudo:
-    name: Setup Action with Debian (no sudo)
+    name: Setup on Debian (no sudo)
     runs-on: ubuntu-latest
     container:
       image: debian:latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout ${{ github.repository }}
+        uses: actions/checkout@v4
       - name: Install curl
         run: apt-get update && apt-get install curl --yes
       - name: Set up Snyk CLI
-        uses: ./setup/
-      - name: snyk version
-        run: snyk --version
-
-  test-setup-action-macos:
-    name: Setup Action with Macos
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install dependencies
-        run: brew install coreutils
-      - name: Set up Snyk CLI
-        uses: ./setup/
+        uses: ./setup
       - name: snyk version
         run: snyk --version
