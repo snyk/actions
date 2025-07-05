@@ -24,10 +24,10 @@ die () {
 }
 
 # Check if correct number of arguments is provided
-[ "$#" -eq 2 ] || die "Setup Snyk requires two arguments, $# provided"
+[ "$#" -eq 3 ] || die "Setup Snyk requires 3 arguments, $# provided"
 
 cd "$(mktemp -d)"
-echo_with_timestamp "Installing the $1 version of Snyk on $2"
+echo_with_timestamp "Installing the $1 version of Snyk on $2 $3"
 
 VERSION=$1
 MAIN_URL="https://downloads.snyk.io/cli"
@@ -43,6 +43,9 @@ case "$2" in
     Windows) die "Windows runner not currently supported" ;;
     *)       die "Invalid runner specified: $2" ;;
 esac
+if [ "$3" = "ARM" ] || [ "$3" = "ARM64" ]; then
+    PREFIX="$PREFIX-arm64"
+fi
 
 {
     echo "#!/bin/bash"

@@ -11,6 +11,9 @@ inputs:
   os:
     description: "Which Operating System Snyk will run on"
     default: ${{ runner.os }}
+  arch:
+    description: "Which Architecture Snyk will run on"
+    default: ${{ runner.arch }}
 outputs:
   version:
     description: "The version of Snyk installed"
@@ -21,11 +24,12 @@ runs:
     - env:
         INPUT_SNYK_VERSION: ${{ inputs.snyk-version }}
         INPUT_OS: ${{ inputs.os }}
+        INPUT_ARCH: ${{ inputs.arch }}
       run: |
         echo $GITHUB_ACTION_PATH
         echo ${{ github.action_path }}
         
-        ${{ github.action_path }}/setup_snyk.sh "${INPUT_SNYK_VERSION}" "${INPUT_OS}" || $GITHUB_ACTION_PATH/setup_snyk.sh "${INPUT_SNYK_VERSION}" "${INPUT_OS}"
+        ${{ github.action_path }}/setup_snyk.sh "${INPUT_SNYK_VERSION}" "${INPUT_OS}" "${INPUT_ARCH}" || $GITHUB_ACTION_PATH/setup_snyk.sh "${INPUT_SNYK_VERSION}" "${INPUT_OS}" "${INPUT_ARCH}"
       shell: bash
     - id: version
       shell: bash

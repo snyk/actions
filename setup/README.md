@@ -1,5 +1,7 @@
 # Snyk Setup Action
 
+![test-setup](https://github.com/snyk/actions/actions/workflows/test-setup.yaml/badge.svg)
+
 A [GitHub Action](https://github.com/features/actions) for installing [Snyk](https://snyk.co/SnykGH) to check for
 vulnerabilities.
 
