@@ -68,12 +68,13 @@ jobs:
           - os: Alpine ARM64
             runner: ubuntu-24.04-arm
     steps:
-      - name: Checkout ${{ github.repository }}
-        uses: actions/checkout@v4
       - name: Install dependencies
-        run: apk update && apk add curl bash
+        run: apk update && apk add curl bash git
+      - name: Checkout ${{ github.repository }}
+        run: |
+          git clone https://github.com/${GITHUB_REPOSITORY}.git snyk-actions
       - name: Set up Snyk CLI
-        uses: ./setup
+        uses: ./snyk-actions/setup
         with:
           os: Alpine
           arch: ${{ runner.arch }}

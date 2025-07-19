@@ -64,6 +64,15 @@ fi
 
 chmod +x snyk
 ${SUDO_CMD} mv snyk /usr/local/bin
+checksum() {
+    if command -v sha256sum >/dev/null 2>&1; then
+        sha256sum -c "$1"
+    elif command -v shasum >/dev/null 2>&1; then
+        shasum -a 256 -c "$1"
+    else
+        die "Neither sha256sum nor shasum is available. Please install one of them and try again."
+    fi
+}
 # Function to download a file with fallback to backup URL
 # Parameters:
 #   $1: Download URL
@@ -85,9 +94,9 @@ download_file() {
     fi
 
     echo_with_timestamp "Validating shasum"
-    if ! sha256sum -c snyk-${PREFIX}.sha256; then
+    if ! checksum snyk-${PREFIX}.sha256; then
         echo_with_timestamp "Actual: "
-        sha256sum snyk-${PREFIX}
+        checksum snyk-${PREFIX}
 
         echo_with_timestamp "Expected: "
         cat snyk-${PREFIX}.sha256
