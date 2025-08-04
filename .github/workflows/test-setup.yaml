@@ -33,6 +33,7 @@ jobs:
     runs-on:
       - ${{ matrix.runner }}
     strategy:
+      fail-fast: false
       matrix:
         include:
           - os: Ubuntu x86_64
@@ -61,6 +62,7 @@ jobs:
     container:
       image: alpine:latest
     strategy:
+      fail-fast: false
       matrix:
         include:
           - os: Alpine x86_64
@@ -72,7 +74,10 @@ jobs:
         run: apk update && apk add curl bash git
       - name: Checkout ${{ github.repository }}
         run: |
-          git clone https://github.com/${GITHUB_REPOSITORY}.git snyk-actions
+          git clone --depth=1 https://github.com/${GITHUB_REPOSITORY}.git snyk-actions
+          cd snyk-actions
+          git fetch --depth=1 origin ${GITHUB_SHA}
+          git checkout ${GITHUB_SHA}
       - name: Set up Snyk CLI
         uses: ./snyk-actions/setup
         with:
