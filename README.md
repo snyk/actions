@@ -13,7 +13,7 @@ you are using. We currently support:
 
 - [CocoaPods](cocoapods)
 - [dotNET](dotnet)
-- [Elixir](elixir)
+- [elixir-1.18](elixir-1.18)
 - [Golang](golang)
 - [Gradle](gradle)
 - [Gradle-jdk11](gradle-jdk11)

@@ -1,5 +1,7 @@
-name: "Snyk Elixir"
-description: "Check your Elixir application for vulnerabilities using Snyk"
+# WARNING: This file is generated, do not edit! Edit _templates/action.yml.erb instead.
+
+name: "Snyk elixir (1.18)"
+description: "Check your elixir application for vulnerabilities using Snyk"
 author: "Snyk Ltd"
 branding:
   icon: "alert-triangle"
@@ -15,11 +17,11 @@ inputs:
     default: false
 runs:
   using: "docker"
-  image: "docker://snyk/snyk:elixir"
+  image: "docker://snyk/snyk:elixir-1.18"
   env:
     FORCE_COLOR: 2
     SNYK_INTEGRATION_NAME: GITHUB_ACTIONS
-    SNYK_INTEGRATION_VERSION: elixir
+    SNYK_INTEGRATION_VERSION: elixir-1.18
   args:
   - snyk
   - ${{ inputs.command }}

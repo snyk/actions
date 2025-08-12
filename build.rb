@@ -9,7 +9,7 @@ class ActionGenerator
   VARIANTS = [
     "CocoaPods",
     "dotNET",
-    "Elixir",
+    "elixir-1.18",
     "Golang",
     "Gradle",
     "Gradle-jdk11",
