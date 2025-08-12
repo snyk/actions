@@ -1,3 +1,7 @@
+<!--
+WARNING: This file is generated, do not edit! Edit _templates/BASE.md.erb instead.
+-->
+
 # Snyk GitHub Actions
 
 ![](https://github.com/snyk/actions/workflows/Generate%20Snyk%20GitHub%20Actions/badge.svg)
