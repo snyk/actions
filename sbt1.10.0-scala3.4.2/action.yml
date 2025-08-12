@@ -1,3 +1,5 @@
+# WARNING: This file is generated, do not edit! Edit _templates/action.yml.erb instead.
+
 name: "Snyk SBT1.10.0 (Scala3.4.2)"
 description: "Check your SBT1.10.0 application for vulnerabilities using Snyk"
 author: "Snyk Ltd"
