@@ -23,6 +23,7 @@ class ActionGenerator
     "Maven-3-jdk-20",
     "Maven-3-jdk-21",
     "Maven-3-jdk-22",
+    "Maven-3-jdk-24",
     "Node",
     "PHP",
     "Python",
