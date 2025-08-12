@@ -1,3 +1,7 @@
+<!--
+WARNING: This file is generated, do not edit! Edit _templates/README.md.erb instead.
+-->
+
 # Snyk Python (3.9)  Action
 
 A [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.co/SnykGH) to check for
