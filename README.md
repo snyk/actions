@@ -136,6 +136,20 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 ```
+### Development
+
+This repository uses an automated build system to generate GitHub Actions and their corresponding test workflows.
+The source of truth is the [variants](./variants) file containing references to Docker tags based off of what is published by [snyk-images](https://github.com/snyk/snyk-images).
+To regenerate all actions and tests after making changes to the templates:
+
+```bash
+ruby build.rb
+```
+
+This will:
+- Generate all variant actions from the templates in `_templates/`
+- Generate corresponding test workflows in `.github/workflows/` for each variant
+- Update the main README with the list of supported variants
 
 
 ## Deprecated Actions
