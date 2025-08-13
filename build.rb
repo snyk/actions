@@ -6,37 +6,7 @@ require "erb"
 require "fileutils"
 
 class ActionGenerator
-  VARIANTS = [
-    "CocoaPods",
-    "dotNET",
-    "elixir-1.18",
-    "Golang",
-    "Gradle",
-    "Gradle-jdk11",
-    "Gradle-jdk12",
-    "Gradle-jdk14",
-    "Gradle-jdk16",
-    "Gradle-jdk17",
-    "Gradle-jdk21",
-    "Maven",
-    "Maven-3-jdk-11",
-    "Maven-3-jdk-17",
-    "Maven-3-jdk-20",
-    "Maven-3-jdk-21",
-    "Maven-3-jdk-22",
-    "Node",
-    "PHP",
-    "Python",
-    "Python-3.6",
-    "Python-3.7",
-    "Python-3.8",
-    "Python-3.9",
-    "Python-3.10",
-    "Python-3.11",
-    "Ruby",
-    "Scala",
-    "SBT1.10.0-Scala3.4.2",
-  ].freeze
+  VARIANTS = File.readlines('variants').map(&:strip).reject(&:empty?).freeze
 
   def initialize
     @templates_dir = "_templates"
