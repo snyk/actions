@@ -8,7 +8,9 @@ WARNING: This file is generated, do not edit! Edit _templates/BASE.md.erb instea
 
 A set of [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.co/SnykGH) to check for
 vulnerabilities in your GitHub projects. A different action is required depending on which language or build tool
-you are using. We currently support:
+you are using.
+
+## Supported Actions
 
 
 - [CocoaPods](cocoapods)
@@ -144,6 +146,8 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 ```
+
+
 
 Made with 💜 by Snyk
 

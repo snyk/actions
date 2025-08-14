@@ -23,7 +23,19 @@ class ActionGenerator
   def generate_base_readme
     puts "Generating base README.md"
     render_template("BASE.md.erb", "README.md") do |erb|
-      erb.instance_variable_set(:@variants, VARIANTS)
+      active_variants = []
+      deprecated_variants = []
+      
+      VARIANTS.each do |variant|
+        if variant.include?("DEPRECATED")
+          deprecated_variants << variant.gsub(/\s*DEPRECATED\s*/, "").strip
+        else
+          active_variants << variant
+        end
+      end
+      
+      erb.instance_variable_set(:@variants, active_variants)
+      erb.instance_variable_set(:@deprecated_variants, deprecated_variants)
     end
   end
 
@@ -35,19 +47,23 @@ class ActionGenerator
   end
 
   def generate_variant_action(variant)
-    dirname = variant.downcase
+    is_deprecated = variant.include?("DEPRECATED")
+    clean_variant = variant.gsub(/\s*DEPRECATED\s*/, "").strip
+    
+    dirname = clean_variant.downcase
     FileUtils.mkdir_p(dirname) unless File.directory?(dirname)
 
-    name, ident = variant.split("-", 2)
+    name, ident = clean_variant.split("-", 2)
 
     %w[action.yml README.md].each do |filename|
       template_name = "#{filename}.erb"
       output_path = File.join(dirname, filename)
 
       render_template(template_name, output_path) do |erb|
-        erb.instance_variable_set(:@variant, variant)
+        erb.instance_variable_set(:@variant, clean_variant)
         erb.instance_variable_set(:@name, name)
         erb.instance_variable_set(:@ident, ident)
+        erb.instance_variable_set(:@is_deprecated, is_deprecated)
       end
     end
   end
