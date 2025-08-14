@@ -10,34 +10,37 @@ end
 
 SNYK_IMAGES_PATH = ARGV[0]
 
-# Read file line by line and filter out lines with DEPRECATED as 3rd word
+# Read file line by line and track deprecated variants
 def read_snyk_files
   content = ""
+  deprecated_variants = []
 
   ['linux', 'alpine'].each do |file_name|
     file_path = File.join(SNYK_IMAGES_PATH, file_name)
     if File.exist?(file_path)
       lines_added = 0
-      lines_skipped = 0
+      deprecated_count = 0
 
       File.readlines(file_path).each do |line|
         words = line.split
-        # Skip lines where DEPRECATED is the 3rd word (index 2)
-        if words.length >= 3 && words[2] == "DEPRECATED"
-          lines_skipped += 1
-        else
-          content += line
-          lines_added += 1
+        # Check if DEPRECATED appears in the line (typically as 3rd word)
+        if words.include?("DEPRECATED") && words.length >= 2
+          deprecated_count += 1
+          # The variant name is the SECOND word (the tag)
+          variant_name = words[1].downcase if words[1]
+          deprecated_variants << variant_name if variant_name
         end
+        content += line
+        lines_added += 1
       end
 
-      puts "Read #{file_name} file: #{lines_added} lines added, #{lines_skipped} lines skipped (DEPRECATED)"
+      puts "Read #{file_name} file: #{lines_added} lines added, #{deprecated_count} marked as DEPRECATED"
     else
       puts "Warning: #{file_path} not found"
     end
   end
 
-  content
+  [content, deprecated_variants]
 end
 
 begin
@@ -67,7 +70,13 @@ begin
   end
 
   puts "Reading snyk-images files from #{SNYK_IMAGES_PATH}..."
-  snyk_content = read_snyk_files
+  snyk_content, deprecated_in_snyk = read_snyk_files
+  
+  # Debug: Show what deprecated variants were found
+  if deprecated_in_snyk.any?
+    puts "\nDeprecated variants found in snyk-images:"
+    deprecated_in_snyk.sort.each { |v| puts "  - #{v}" }
+  end
 
   puts "\nLoading variants..."
   unless File.exist?('variants')
@@ -80,33 +89,62 @@ begin
   puts "Current variants count: #{current_variants.size}"
 
   variants_to_keep = []
-  variants_to_remove = []
+  variants_to_deprecate = []
 
   puts "Current variants: #{current_variants.join(', ')}"
 
   current_variants.each do |variant|
-    puts "Checking variant: #{variant}"
-    if snyk_content.match?(/\b#{Regexp.escape(variant)}\b/i)
-      variants_to_keep << variant
+    # Clean variant name (remove existing DEPRECATED marker if present)
+    clean_variant = variant.gsub(/\s*DEPRECATED\s*/, "").strip
+    
+    puts "Checking variant: #{clean_variant}"
+    
+    # Mark as deprecated if either:
+    # 1. It's marked as DEPRECATED in snyk-images
+    # 2. It's not found in snyk-images at all
+    found_in_snyk = snyk_content.match?(/\b#{Regexp.escape(clean_variant)}\b/i)
+    is_deprecated_in_snyk = deprecated_in_snyk.include?(clean_variant.downcase)
+    
+    if found_in_snyk
+      puts "  → Found in snyk-images, deprecated: #{is_deprecated_in_snyk}"
+      # Check if it's deprecated in snyk-images (case-insensitive)
+      if is_deprecated_in_snyk
+        # Mark as deprecated (unless already marked)
+        if variant.include?("DEPRECATED")
+          variants_to_keep << variant
+        else
+          variants_to_deprecate << clean_variant
+          variants_to_keep << "#{clean_variant} DEPRECATED"
+        end
+      else
+        # Keep as active variant
+        variants_to_keep << clean_variant
+      end
     else
-      variants_to_remove << variant
+      # Not found in snyk-images at all, mark as deprecated
+      if variant.include?("DEPRECATED")
+        variants_to_keep << variant
+      else
+        variants_to_deprecate << clean_variant
+        variants_to_keep << "#{clean_variant} DEPRECATED"
+      end
     end
   end
 
-  if variants_to_remove.empty?
-    puts "\nNo variants need to be removed. All current variants exist in snyk-images."
+  if variants_to_deprecate.empty?
+    puts "\nNo changes needed. All variants are up to date."
     exit 0
   end
 
-  puts "\nVariants to remove (not found or marked as DEPRECATED in snyk-images):"
-  variants_to_remove.each { |v| puts "  - #{v}" }
+  puts "\nVariants to mark as DEPRECATED:"
+  variants_to_deprecate.each { |v| puts "  - #{v}" }
 
-  puts "\nVariants to keep (found in snyk-images):"
+  puts "\nUpdated variants list:"
   variants_to_keep.each { |v| puts "  - #{v}" }
 
   puts "\nUpdating variants file..."
   File.write('variants', variants_to_keep.join("\n") + "\n")
-  puts "Updated variants from #{current_variants.size} to #{variants_to_keep.size} entries"
+  puts "Updated variants: #{variants_to_deprecate.size} marked as deprecated"
 
   puts "\nRunning build.rb to regenerate actions..."
   system("ruby build.rb")
