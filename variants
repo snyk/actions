@@ -1,29 +1,29 @@
 CocoaPods
-dotNET
+dotNET DEPRECATED
 elixir-1.18
 Golang
 Gradle
 Gradle-jdk11
-Gradle-jdk12
-Gradle-jdk14
-Gradle-jdk16
+Gradle-jdk12 DEPRECATED
+Gradle-jdk14 DEPRECATED
+Gradle-jdk16 DEPRECATED
 Gradle-jdk17
 Gradle-jdk21
 Maven
 Maven-3-jdk-11
 Maven-3-jdk-17
-Maven-3-jdk-20
+Maven-3-jdk-20 DEPRECATED
 Maven-3-jdk-21
-Maven-3-jdk-22
+Maven-3-jdk-22 DEPRECATED
 Node
 PHP
 Python
-Python-3.6
-Python-3.7
-Python-3.8
+Python-3.6 DEPRECATED
+Python-3.7 DEPRECATED
+Python-3.8 DEPRECATED
 Python-3.9
 Python-3.10
 Python-3.11
 Ruby
-Scala
+Scala DEPRECATED
 SBT1.10.0-Scala3.4.2
