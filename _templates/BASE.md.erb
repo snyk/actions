@@ -8,7 +8,9 @@ WARNING: This file is generated, do not edit! Edit _templates/BASE.md.erb instea
 
 A set of [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.co/SnykGH) to check for
 vulnerabilities in your GitHub projects. A different action is required depending on which language or build tool
-you are using. We currently support:
+you are using.
+
+## Supported Actions
 
 <% @variants.each do | variant | %>
 - [<%= variant %>](<%= variant.downcase %>)<% end %>
@@ -116,6 +118,15 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 ```
+
+<% if @deprecated_variants && !@deprecated_variants.empty? %>
+## Deprecated Actions
+
+The following actions are deprecated and no longer supported by Snyk or the downstream provider. Please see the [Supported Actions](#supported-actions) section above for alternatives. If you need an action that is not currently supported, we welcome pull requests to add new language support.
+
+<% @deprecated_variants.each do | variant | %>
+- [<%= variant %>](<%= variant.downcase %>)<% end %>
+<% end %>
 
 Made with 💜 by Snyk
 
