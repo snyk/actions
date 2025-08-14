@@ -20,9 +20,8 @@ runs:<% if @is_deprecated %>
   steps:
     - name: Show deprecation warning
       shell: bash
-      run: |
-        echo "::warning title=Deprecated Action::This Snyk action is deprecated. Please visit Snyk actions at https://github.com/snyk/actions for a newer version."
-    
+      run: echo "::warning title=Deprecated Action::The action <%= @variant.downcase %> is deprecated. Please visit Snyk actions at https://github.com/snyk/actions for a newer version."
+
     - name: Run Snyk scan
       uses: docker://snyk/snyk:<%= @variant.downcase %>
       env:

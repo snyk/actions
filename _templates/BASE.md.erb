@@ -122,7 +122,7 @@ jobs:
 <% if @deprecated_variants && !@deprecated_variants.empty? %>
 ## Deprecated Actions
 
-The following actions are deprecated and will be removed in the future. Please see the [Supported Actions](#supported-actions) section above for alternatives. If you need an action that is not currently supported, we welcome pull requests to add new language support.
+The following actions are deprecated and no longer supported by Snyk or the downstream provider. Please see the [Supported Actions](#supported-actions) section above for alternatives. If you need an action that is not currently supported, we welcome pull requests to add new language support.
 
 <% @deprecated_variants.each do | variant | %>
 - [<%= variant %>](<%= variant.downcase %>)<% end %>
