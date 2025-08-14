@@ -16,13 +16,17 @@ inputs:
     description: "Output a snyk.json file with results if running the test command"
     default: false
 runs:
-  using: "docker"
-  image: "docker://snyk/snyk:gradle-jdk14"
-  env:
-    FORCE_COLOR: 2
-    SNYK_INTEGRATION_NAME: GITHUB_ACTIONS
-    SNYK_INTEGRATION_VERSION: gradle-jdk14
-  args:
-  - snyk
-  - ${{ inputs.command }}
-  - ${{ inputs.args }}
+  using: "composite"
+  steps:
+    - name: Show deprecation warning
+      shell: bash
+      run: echo "::warning title=Deprecated Action::The action gradle-jdk14 is deprecated. Please visit Snyk actions at https://github.com/snyk/actions for a newer version."
+
+    - name: Run Snyk scan
+      uses: docker://snyk/snyk:gradle-jdk14
+      env:
+        FORCE_COLOR: 2
+        SNYK_INTEGRATION_NAME: GITHUB_ACTIONS
+        SNYK_INTEGRATION_VERSION: gradle-jdk14
+      with:
+        args: snyk ${{ inputs.command }} ${{ inputs.args }}
