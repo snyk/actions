@@ -16,13 +16,19 @@ inputs:
     description: "Output a snyk.json file with results if running the test command"
     default: false
 runs:
-  using: "docker"
-  image: "docker://snyk/snyk:python-3.8"
-  env:
-    FORCE_COLOR: 2
-    SNYK_INTEGRATION_NAME: GITHUB_ACTIONS
-    SNYK_INTEGRATION_VERSION: python-3.8
-  args:
-  - snyk
-  - ${{ inputs.command }}
-  - ${{ inputs.args }}
+  using: "composite"
+  steps:
+    - name: Show deprecation warning
+      shell: bash
+      run: |
+        echo "::warning title=Deprecated Action::This Snyk action is deprecated. Please use the new Snyk actions at https://github.com/snyk/actions for better features and support."
+        echo "::notice::Visit https://github.com/snyk/actions to migrate to the new Snyk GitHub Actions."
+    
+    - name: Run Snyk scan
+      uses: docker://snyk/snyk:python-3.8
+      env:
+        FORCE_COLOR: 2
+        SNYK_INTEGRATION_NAME: GITHUB_ACTIONS
+        SNYK_INTEGRATION_VERSION: python-3.8
+      with:
+        args: snyk ${{ inputs.command }} ${{ inputs.args }}
