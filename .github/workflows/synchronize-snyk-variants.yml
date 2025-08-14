@@ -102,6 +102,6 @@ jobs:
           echo "No existing PR found. Creating a new one."
           gh pr create \
             --title="${{ env.COMMIT_MESSAGE }}" \
-            --body="This PR automatically removes variants that are no longer present in the [snyk-images](https://github.com/snyk/snyk-images) repository. \
+            --body="This PR automatically removes variants that are no longer present in the [snyk-images](https://github.com/snyk/snyk-images) repository." \
             --head "${{ env.DESTINATION_BRANCH }}" \
             --base master
