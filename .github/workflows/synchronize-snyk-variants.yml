@@ -9,7 +9,7 @@ on:
 
 env:
   DESTINATION_BRANCH: auto/synchronize-snyk-variants
-  COMMIT_MESSAGE: 'fix: synchronize actions with `snyk-images`'
+  COMMIT_MESSAGE: 'fix: synchronize actions with the snyk-images repository'
 
 jobs:
   synchronize-variants:
