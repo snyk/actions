@@ -1,3 +1,5 @@
+# WARNING: This file is generated, do not edit! Edit _templates/action.yml.erb instead.
+
 name: "Snyk PHP"
 description: "Check your PHP application for vulnerabilities using Snyk"
 author: "Snyk Ltd"

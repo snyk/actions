@@ -1,3 +1,5 @@
+# WARNING: This file is generated, do not edit! Edit _templates/action.yml.erb instead.
+
 name: "Snyk<% if @variant != "Node"%> <%= @name %><% if @ident %> (<%= @ident %>)<% end %><% end %>"
 description: "Check your <%= @variant == "Node" && @is_root ? "applications" : "#{@name} application" %> for vulnerabilities using Snyk"
 author: "Snyk Ltd"

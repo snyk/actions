@@ -1,3 +1,7 @@
+<!--
+WARNING: This file is generated, do not edit! Edit _templates/BASE.md.erb instead.
+-->
+
 # Snyk GitHub Actions
 
 ![](https://github.com/snyk/actions/workflows/Generate%20Snyk%20GitHub%20Actions/badge.svg)
@@ -9,6 +13,7 @@ you are using. We currently support:
 
 - [CocoaPods](cocoapods)
 - [dotNET](dotnet)
+- [elixir-1.18](elixir-1.18)
 - [Golang](golang)
 - [Gradle](gradle)
 - [Gradle-jdk11](gradle-jdk11)
