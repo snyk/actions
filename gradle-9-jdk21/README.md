@@ -2,18 +2,17 @@
 WARNING: This file is generated, do not edit! Edit _templates/README.md.erb instead.
 -->
 
-# Snyk Gradle (jdk17)  Action
+# Snyk gradle (9-jdk21)  Action
 
-## :warning: Deprecated Action
-This action is deprecated and no longer supported by Snyk. Please consult the [docs](../README.md) for alternatives.
+
 
 A [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.co/SnykGH) to check for
-vulnerabilities in your Gradle-jdk17 projects. This Action is based on the [Snyk CLI][cli-gh] and you can use [all of its options and capabilities][cli-ref] with the `args`.
+vulnerabilities in your gradle-9-jdk21 projects. This Action is based on the [Snyk CLI][cli-gh] and you can use [all of its options and capabilities][cli-ref] with the `args`.
 
 You can use the Action as follows:
 
 ```yaml
-name: Example workflow for Gradle using Snyk
+name: Example workflow for gradle using Snyk
 on: push
 jobs:
   security:
@@ -21,14 +20,14 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/gradle-jdk17@master
+        uses: snyk/actions/gradle-9-jdk21@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 ```
 
 ## Properties
 
-The Snyk Gradle Action has properties which are passed to the underlying image. These are passed to the action using `with`.
+The Snyk gradle Action has properties which are passed to the underlying image. These are passed to the action using `with`.
 
 | Property | Default | Description                                                                                         |
 | -------- | ------- | --------------------------------------------------------------------------------------------------- |
@@ -39,7 +38,7 @@ The Snyk Gradle Action has properties which are passed to the underlying image. 
 For example, you can choose to only report on high severity vulnerabilities.
 
 ```yaml
-name: Example workflow for Gradle using Snyk
+name: Example workflow for gradle using Snyk
 on: push
 jobs:
   security:
@@ -47,7 +46,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/gradle-jdk17@master
+        uses: snyk/actions/gradle-9-jdk21@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
@@ -63,7 +62,7 @@ Using `--sarif-file-output` [Snyk CLI flag][cli-ref] and the [official GitHub SA
 The Snyk Action will fail when vulnerabilities are found. This would prevent the SARIF upload action from running, so we need to introduce a [continue-on-error](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepscontinue-on-error) option like this:
 
 ```yaml
-name: Example workflow for Gradle using Snyk
+name: Example workflow for gradle using Snyk
 on: push
 jobs:
   security:
@@ -71,7 +70,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/gradle-jdk17@master
+        uses: snyk/actions/gradle-9-jdk21@master
         continue-on-error: true # To make sure that SARIF upload gets called
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

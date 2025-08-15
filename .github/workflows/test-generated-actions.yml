@@ -32,18 +32,24 @@ jobs:
           - golang
           - gradle
           - gradle-jdk11
-          - gradle-jdk17
-          - gradle-jdk21
+          - gradle-8-jdk17
+          - gradle-9-jdk17
+          - gradle-8-jdk21
+          - gradle-9-jdk21
+          - gradle-8-jdk24
+          - gradle-9-jdk24
           - maven
           - maven-3-jdk-11
           - maven-3-jdk-17
           - maven-3-jdk-21
+          - maven-3-jdk-24
           - node
           - php
           - python
           - python-3.9
           - python-3.10
           - python-3.11
+          - python-3.12
           - ruby
           - sbt1.10.0-scala3.4.2
     steps:
@@ -82,15 +88,39 @@ jobs:
         with:
           command: help
 
-      - name: Run Snyk Gradle-jdk17 Action
-        if: matrix.variant == 'gradle-jdk17'
-        uses: ./gradle-jdk17/
+      - name: Run Snyk gradle-8-jdk17 Action
+        if: matrix.variant == 'gradle-8-jdk17'
+        uses: ./gradle-8-jdk17/
         with:
           command: help
 
-      - name: Run Snyk Gradle-jdk21 Action
-        if: matrix.variant == 'gradle-jdk21'
-        uses: ./gradle-jdk21/
+      - name: Run Snyk gradle-9-jdk17 Action
+        if: matrix.variant == 'gradle-9-jdk17'
+        uses: ./gradle-9-jdk17/
+        with:
+          command: help
+
+      - name: Run Snyk gradle-8-jdk21 Action
+        if: matrix.variant == 'gradle-8-jdk21'
+        uses: ./gradle-8-jdk21/
+        with:
+          command: help
+
+      - name: Run Snyk gradle-9-jdk21 Action
+        if: matrix.variant == 'gradle-9-jdk21'
+        uses: ./gradle-9-jdk21/
+        with:
+          command: help
+
+      - name: Run Snyk gradle-8-jdk24 Action
+        if: matrix.variant == 'gradle-8-jdk24'
+        uses: ./gradle-8-jdk24/
+        with:
+          command: help
+
+      - name: Run Snyk gradle-9-jdk24 Action
+        if: matrix.variant == 'gradle-9-jdk24'
+        uses: ./gradle-9-jdk24/
         with:
           command: help
 
@@ -115,6 +145,12 @@ jobs:
       - name: Run Snyk Maven-3-jdk-21 Action
         if: matrix.variant == 'maven-3-jdk-21'
         uses: ./maven-3-jdk-21/
+        with:
+          command: help
+
+      - name: Run Snyk Maven-3-jdk-24 Action
+        if: matrix.variant == 'maven-3-jdk-24'
+        uses: ./maven-3-jdk-24/
         with:
           command: help
 
@@ -151,6 +187,12 @@ jobs:
       - name: Run Snyk Python-3.11 Action
         if: matrix.variant == 'python-3.11'
         uses: ./python-3.11/
+        with:
+          command: help
+
+      - name: Run Snyk Python-3.12 Action
+        if: matrix.variant == 'python-3.12'
+        uses: ./python-3.12/
         with:
           command: help
 

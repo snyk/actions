@@ -7,14 +7,21 @@ Gradle-jdk11
 Gradle-jdk12 DEPRECATED
 Gradle-jdk14 DEPRECATED
 Gradle-jdk16 DEPRECATED
-Gradle-jdk17
-Gradle-jdk21
+Gradle-jdk17 DEPRECATED
+Gradle-jdk21 DEPRECATED
+gradle-8-jdk17
+gradle-9-jdk17
+gradle-8-jdk21
+gradle-9-jdk21
+gradle-8-jdk24
+gradle-9-jdk24
 Maven
 Maven-3-jdk-11
 Maven-3-jdk-17
 Maven-3-jdk-20 DEPRECATED
 Maven-3-jdk-21
 Maven-3-jdk-22 DEPRECATED
+Maven-3-jdk-24
 Node
 PHP
 Python
@@ -24,6 +31,7 @@ Python-3.8 DEPRECATED
 Python-3.9
 Python-3.10
 Python-3.11
+Python-3.12
 Ruby
 Scala DEPRECATED
 SBT1.10.0-Scala3.4.2
