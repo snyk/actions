@@ -4,9 +4,10 @@ WARNING: This file is generated, do not edit! Edit _templates/README.md.erb inst
 
 # Snyk Golang Action
 
+
+
 A [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.co/SnykGH) to check for
 vulnerabilities in your Golang projects. This Action is based on the [Snyk CLI][cli-gh] and you can use [all of its options and capabilities][cli-ref] with the `args`.
-
 
 You can use the Action as follows:
 

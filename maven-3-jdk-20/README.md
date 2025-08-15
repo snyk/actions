@@ -4,9 +4,11 @@ WARNING: This file is generated, do not edit! Edit _templates/README.md.erb inst
 
 # Snyk Maven (3-jdk-20)  Action
 
+## :warning: Deprecated Action
+This action is deprecated and no longer supported by Snyk. Please consult the [docs](../README.md) for alternatives.
+
 A [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.co/SnykGH) to check for
 vulnerabilities in your Maven-3-jdk-20 projects. This Action is based on the [Snyk CLI][cli-gh] and you can use [all of its options and capabilities][cli-ref] with the `args`.
-
 
 You can use the Action as follows:
 
