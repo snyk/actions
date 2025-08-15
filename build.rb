@@ -16,24 +16,30 @@ class ActionGenerator
     generate_base_readme
     generate_variant_actions
     generate_root_action
+    generate_test_workflows
   end
 
   private
 
+  def variant_deprecated?(variant)
+    variant.include?("DEPRECATED")
+  end
+
+  def clean_variant_name(variant)
+    variant.gsub(/\s*DEPRECATED\s*/, "").strip
+  end
+
+  def active_variants
+    VARIANTS.reject { |v| variant_deprecated?(v) }
+  end
+
+  def deprecated_variants
+    VARIANTS.select { |v| variant_deprecated?(v) }.map { |v| clean_variant_name(v) }
+  end
+
   def generate_base_readme
     puts "Generating base README.md"
     render_template("BASE.md.erb", "README.md") do |erb|
-      active_variants = []
-      deprecated_variants = []
-      
-      VARIANTS.each do |variant|
-        if variant.include?("DEPRECATED")
-          deprecated_variants << variant.gsub(/\s*DEPRECATED\s*/, "").strip
-        else
-          active_variants << variant
-        end
-      end
-      
       erb.instance_variable_set(:@variants, active_variants)
       erb.instance_variable_set(:@deprecated_variants, deprecated_variants)
     end
@@ -47,8 +53,8 @@ class ActionGenerator
   end
 
   def generate_variant_action(variant)
-    is_deprecated = variant.include?("DEPRECATED")
-    clean_variant = variant.gsub(/\s*DEPRECATED\s*/, "").strip
+    is_deprecated = variant_deprecated?(variant)
+    clean_variant = clean_variant_name(variant)
     
     dirname = clean_variant.downcase
     FileUtils.mkdir_p(dirname) unless File.directory?(dirname)
@@ -76,6 +82,20 @@ class ActionGenerator
       erb.instance_variable_set(:@name, "Node")
       erb.instance_variable_set(:@ident, nil)
       erb.instance_variable_set(:@is_root, true)
+    end
+  end
+
+  def generate_test_workflows
+    workflows_dir = ".github/workflows"
+    FileUtils.mkdir_p(workflows_dir) unless File.directory?(workflows_dir)
+
+    puts "Generating matrix test workflow for active (non-deprecated) actions"
+    
+    template_name = "test-generated-actions.yml.erb"
+    output_path = File.join(workflows_dir, "test-generated-actions.yml")
+    
+    render_template(template_name, output_path) do |erb|
+      erb.instance_variable_set(:@variants, active_variants)
     end
   end
 
