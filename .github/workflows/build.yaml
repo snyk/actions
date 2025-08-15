@@ -36,7 +36,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
-        run: apk update && apk add curl bash
+        run: apk update && apk add curl
       - name: Set up Snyk CLI
         uses: ./setup/
         with:
