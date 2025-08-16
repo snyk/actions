@@ -1,10 +1,16 @@
+<!--
+WARNING: This file is generated, do not edit! Edit _templates/BASE.md.erb instead.
+-->
+
 # Snyk GitHub Actions
 
 ![](https://github.com/snyk/actions/workflows/Generate%20Snyk%20GitHub%20Actions/badge.svg)
 
 A set of [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.co/SnykGH) to check for
 vulnerabilities in your GitHub projects. A different action is required depending on which language or build tool
-you are using. We currently support:
+you are using.
+
+## Supported Actions
 
 <% @variants.each do | variant | %>
 - [<%= variant %>](<%= variant.downcase %>)<% end %>
@@ -112,6 +118,29 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 ```
+### Development
+
+This repository uses an automated build system to generate GitHub Actions and their corresponding test workflows.
+The source of truth is the [variants](./variants) file containing references to Docker tags based off of what is published by [snyk-images](https://github.com/snyk/snyk-images).
+To regenerate all actions and tests after making changes to the templates:
+
+```bash
+ruby build.rb
+```
+
+This will:
+- Generate all variant actions from the templates in `_templates/`
+- Generate corresponding test workflows in `.github/workflows/` for each variant
+- Update the main README with the list of supported variants
+
+<% if @deprecated_variants && !@deprecated_variants.empty? %>
+## Deprecated Actions
+
+The following actions are deprecated and no longer supported by Snyk or the downstream provider. Please see the [Supported Actions](#supported-actions) section above for alternatives. If you need an action that is not currently supported, we welcome pull requests to add new language support.
+
+<% @deprecated_variants.each do | variant | %>
+- [<%= variant %>](<%= variant.downcase %>)<% end %>
+<% end %>
 
 Made with 💜 by Snyk
 

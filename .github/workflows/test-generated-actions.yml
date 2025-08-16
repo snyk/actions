@@ -1,0 +1,212 @@
+# WARNING: This file is generated, do not edit! Edit _templates/test-generated-actions.yml.erb instead.
+#
+# Copyright 2025 Snyk Ltd.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Test Generated Actions
+on:
+  workflow_dispatch:
+  pull_request:
+
+jobs:
+  test-actions:
+    name: Test ${{ matrix.variant }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        variant:
+          - cocoapods
+          - elixir-1.18
+          - golang
+          - gradle
+          - gradle-jdk11
+          - gradle-8-jdk17
+          - gradle-9-jdk17
+          - gradle-8-jdk21
+          - gradle-9-jdk21
+          - gradle-8-jdk24
+          - gradle-9-jdk24
+          - maven
+          - maven-3-jdk-11
+          - maven-3-jdk-17
+          - maven-3-jdk-21
+          - maven-3-jdk-24
+          - node
+          - php
+          - python
+          - python-3.9
+          - python-3.10
+          - python-3.11
+          - python-3.12
+          - ruby
+          - sbt1.10.0-scala3.4.2
+    steps:
+      - uses: actions/checkout@v4
+        # This looks odd, but the `matrix.variant` as input in `uses` is not supported by Github.
+        # Therefore, we must add every step as a conditional instead, if we don't want to generate an
+        # individual workflow for each variant.
+
+      - name: Run Snyk CocoaPods Action
+        if: matrix.variant == 'cocoapods'
+        uses: ./cocoapods/
+        with:
+          command: help
+
+      - name: Run Snyk elixir-1.18 Action
+        if: matrix.variant == 'elixir-1.18'
+        uses: ./elixir-1.18/
+        with:
+          command: help
+
+      - name: Run Snyk Golang Action
+        if: matrix.variant == 'golang'
+        uses: ./golang/
+        with:
+          command: help
+
+      - name: Run Snyk Gradle Action
+        if: matrix.variant == 'gradle'
+        uses: ./gradle/
+        with:
+          command: help
+
+      - name: Run Snyk Gradle-jdk11 Action
+        if: matrix.variant == 'gradle-jdk11'
+        uses: ./gradle-jdk11/
+        with:
+          command: help
+
+      - name: Run Snyk gradle-8-jdk17 Action
+        if: matrix.variant == 'gradle-8-jdk17'
+        uses: ./gradle-8-jdk17/
+        with:
+          command: help
+
+      - name: Run Snyk gradle-9-jdk17 Action
+        if: matrix.variant == 'gradle-9-jdk17'
+        uses: ./gradle-9-jdk17/
+        with:
+          command: help
+
+      - name: Run Snyk gradle-8-jdk21 Action
+        if: matrix.variant == 'gradle-8-jdk21'
+        uses: ./gradle-8-jdk21/
+        with:
+          command: help
+
+      - name: Run Snyk gradle-9-jdk21 Action
+        if: matrix.variant == 'gradle-9-jdk21'
+        uses: ./gradle-9-jdk21/
+        with:
+          command: help
+
+      - name: Run Snyk gradle-8-jdk24 Action
+        if: matrix.variant == 'gradle-8-jdk24'
+        uses: ./gradle-8-jdk24/
+        with:
+          command: help
+
+      - name: Run Snyk gradle-9-jdk24 Action
+        if: matrix.variant == 'gradle-9-jdk24'
+        uses: ./gradle-9-jdk24/
+        with:
+          command: help
+
+      - name: Run Snyk Maven Action
+        if: matrix.variant == 'maven'
+        uses: ./maven/
+        with:
+          command: help
+
+      - name: Run Snyk Maven-3-jdk-11 Action
+        if: matrix.variant == 'maven-3-jdk-11'
+        uses: ./maven-3-jdk-11/
+        with:
+          command: help
+
+      - name: Run Snyk Maven-3-jdk-17 Action
+        if: matrix.variant == 'maven-3-jdk-17'
+        uses: ./maven-3-jdk-17/
+        with:
+          command: help
+
+      - name: Run Snyk Maven-3-jdk-21 Action
+        if: matrix.variant == 'maven-3-jdk-21'
+        uses: ./maven-3-jdk-21/
+        with:
+          command: help
+
+      - name: Run Snyk Maven-3-jdk-24 Action
+        if: matrix.variant == 'maven-3-jdk-24'
+        uses: ./maven-3-jdk-24/
+        with:
+          command: help
+
+      - name: Run Snyk Node Action
+        if: matrix.variant == 'node'
+        uses: ./node/
+        with:
+          command: help
+
+      - name: Run Snyk PHP Action
+        if: matrix.variant == 'php'
+        uses: ./php/
+        with:
+          command: help
+
+      - name: Run Snyk Python Action
+        if: matrix.variant == 'python'
+        uses: ./python/
+        with:
+          command: help
+
+      - name: Run Snyk Python-3.9 Action
+        if: matrix.variant == 'python-3.9'
+        uses: ./python-3.9/
+        with:
+          command: help
+
+      - name: Run Snyk Python-3.10 Action
+        if: matrix.variant == 'python-3.10'
+        uses: ./python-3.10/
+        with:
+          command: help
+
+      - name: Run Snyk Python-3.11 Action
+        if: matrix.variant == 'python-3.11'
+        uses: ./python-3.11/
+        with:
+          command: help
+
+      - name: Run Snyk Python-3.12 Action
+        if: matrix.variant == 'python-3.12'
+        uses: ./python-3.12/
+        with:
+          command: help
+
+      - name: Run Snyk Ruby Action
+        if: matrix.variant == 'ruby'
+        uses: ./ruby/
+        with:
+          command: help
+
+      - name: Run Snyk SBT1.10.0-Scala3.4.2 Action
+        if: matrix.variant == 'sbt1.10.0-scala3.4.2'
+        uses: ./sbt1.10.0-scala3.4.2/
+        with:
+          command: help
+
+      - name: Verify help command succeeded
+        run: echo "Snyk ${{ matrix.variant }} action executed successfully."

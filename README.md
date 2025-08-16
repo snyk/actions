@@ -1,39 +1,42 @@
+<!--
+WARNING: This file is generated, do not edit! Edit _templates/BASE.md.erb instead.
+-->
+
 # Snyk GitHub Actions
 
 ![](https://github.com/snyk/actions/workflows/Generate%20Snyk%20GitHub%20Actions/badge.svg)
 
 A set of [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.co/SnykGH) to check for
 vulnerabilities in your GitHub projects. A different action is required depending on which language or build tool
-you are using. We currently support:
+you are using.
+
+## Supported Actions
 
 
 - [CocoaPods](cocoapods)
-- [dotNET](dotnet)
+- [elixir-1.18](elixir-1.18)
 - [Golang](golang)
 - [Gradle](gradle)
 - [Gradle-jdk11](gradle-jdk11)
-- [Gradle-jdk12](gradle-jdk12)
-- [Gradle-jdk14](gradle-jdk14)
-- [Gradle-jdk16](gradle-jdk16)
-- [Gradle-jdk17](gradle-jdk17)
-- [Gradle-jdk21](gradle-jdk21)
+- [gradle-8-jdk17](gradle-8-jdk17)
+- [gradle-9-jdk17](gradle-9-jdk17)
+- [gradle-8-jdk21](gradle-8-jdk21)
+- [gradle-9-jdk21](gradle-9-jdk21)
+- [gradle-8-jdk24](gradle-8-jdk24)
+- [gradle-9-jdk24](gradle-9-jdk24)
 - [Maven](maven)
 - [Maven-3-jdk-11](maven-3-jdk-11)
 - [Maven-3-jdk-17](maven-3-jdk-17)
-- [Maven-3-jdk-20](maven-3-jdk-20)
 - [Maven-3-jdk-21](maven-3-jdk-21)
-- [Maven-3-jdk-22](maven-3-jdk-22)
+- [Maven-3-jdk-24](maven-3-jdk-24)
 - [Node](node)
 - [PHP](php)
 - [Python](python)
-- [Python-3.6](python-3.6)
-- [Python-3.7](python-3.7)
-- [Python-3.8](python-3.8)
 - [Python-3.9](python-3.9)
 - [Python-3.10](python-3.10)
 - [Python-3.11](python-3.11)
+- [Python-3.12](python-3.12)
 - [Ruby](ruby)
-- [Scala](scala)
 - [SBT1.10.0-Scala3.4.2](sbt1.10.0-scala3.4.2)
 - [Docker](docker)
 - [Infrastructure as Code](iac)
@@ -139,6 +142,40 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 ```
+### Development
+
+This repository uses an automated build system to generate GitHub Actions and their corresponding test workflows.
+The source of truth is the [variants](./variants) file containing references to Docker tags based off of what is published by [snyk-images](https://github.com/snyk/snyk-images).
+To regenerate all actions and tests after making changes to the templates:
+
+```bash
+ruby build.rb
+```
+
+This will:
+- Generate all variant actions from the templates in `_templates/`
+- Generate corresponding test workflows in `.github/workflows/` for each variant
+- Update the main README with the list of supported variants
+
+
+## Deprecated Actions
+
+The following actions are deprecated and no longer supported by Snyk or the downstream provider. Please see the [Supported Actions](#supported-actions) section above for alternatives. If you need an action that is not currently supported, we welcome pull requests to add new language support.
+
+
+- [dotNET](dotnet)
+- [Gradle-jdk12](gradle-jdk12)
+- [Gradle-jdk14](gradle-jdk14)
+- [Gradle-jdk16](gradle-jdk16)
+- [Gradle-jdk17](gradle-jdk17)
+- [Gradle-jdk21](gradle-jdk21)
+- [Maven-3-jdk-20](maven-3-jdk-20)
+- [Maven-3-jdk-22](maven-3-jdk-22)
+- [Python-3.6](python-3.6)
+- [Python-3.7](python-3.7)
+- [Python-3.8](python-3.8)
+- [Scala](scala)
+
 
 Made with 💜 by Snyk
 
