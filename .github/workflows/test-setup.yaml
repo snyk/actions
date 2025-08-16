@@ -1,0 +1,102 @@
+# Copyright 2025 Snyk Ltd.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+name: Test Setup
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/test-setup.yaml
+      - setup/**
+  push:
+    branches:
+      - master
+    paths:
+      - .github/workflows/test-setup.yaml
+      - setup/**
+  workflow_dispatch: {}
+
+jobs:
+  test-setup-linux-macos:
+    name: Setup on ${{ matrix.os }}
+    runs-on:
+      - ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: Ubuntu x86_64
+            runner: ubuntu-24.04
+          - os: Ubuntu ARM64
+            runner: ubuntu-24.04-arm
+          - os: macOS x86_64
+            runner: macos-13
+          - os: macOS ARM64
+            runner: macos-15
+    steps:
+      - name: Checkout ${{ github.repository }}
+        uses: actions/checkout@v4
+      - name: Set up Snyk CLI
+        uses: ./setup
+        with:
+          os: "${{ runner.os }}"
+          arch: "${{ runner.arch }}"
+      - name: snyk version
+        run: snyk --version
+
+  test-setup-alpine:
+    name: Setup on ${{ matrix.os }}
+    runs-on:
+      - ${{ matrix.runner }}
+    container:
+      image: alpine:latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: Alpine x86_64
+            runner: ubuntu-24.04
+          - os: Alpine ARM64
+            runner: ubuntu-24.04-arm
+    steps:
+      - name: Install dependencies
+        run: apk update && apk add curl bash git
+      - name: Checkout ${{ github.repository }}
+        run: |
+          git clone --depth=1 https://github.com/${GITHUB_REPOSITORY}.git snyk-actions
+          cd snyk-actions
+          git fetch --depth=1 origin ${GITHUB_SHA}
+          git checkout ${GITHUB_SHA}
+      - name: Set up Snyk CLI
+        uses: ./snyk-actions/setup
+        with:
+          os: Alpine
+          arch: ${{ runner.arch }}
+      - name: snyk version
+        run: snyk --version
+
+  test-setup-debian-no-sudo:
+    name: Setup on Debian (no sudo)
+    runs-on: ubuntu-latest
+    container:
+      image: debian:latest
+    steps:
+      - name: Checkout ${{ github.repository }}
+        uses: actions/checkout@v4
+      - name: Install curl
+        run: apt-get update && apt-get install curl --yes
+      - name: Set up Snyk CLI
+        uses: ./setup
+      - name: snyk version
+        run: snyk --version

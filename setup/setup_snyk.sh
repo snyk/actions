@@ -24,10 +24,10 @@ die () {
 }
 
 # Check if correct number of arguments is provided
-[ "$#" -eq 2 ] || die "Setup Snyk requires two arguments, $# provided"
+[ "$#" -eq 3 ] || die "Setup Snyk requires 3 arguments, $# provided"
 
 cd "$(mktemp -d)"
-echo_with_timestamp "Installing the $1 version of Snyk on $2"
+echo_with_timestamp "Installing the $1 version of Snyk on $2 $3"
 
 VERSION=$1
 MAIN_URL="https://downloads.snyk.io/cli"
@@ -43,6 +43,9 @@ case "$2" in
     Windows) die "Windows runner not currently supported" ;;
     *)       die "Invalid runner specified: $2" ;;
 esac
+if [ "$3" = "ARM" ] || [ "$3" = "ARM64" ]; then
+    PREFIX="$PREFIX-arm64"
+fi
 
 {
     echo "#!/bin/bash"
@@ -61,6 +64,15 @@ fi
 
 chmod +x snyk
 ${SUDO_CMD} mv snyk /usr/local/bin
+checksum() {
+    if command -v sha256sum >/dev/null 2>&1; then
+        sha256sum -c "$1"
+    elif command -v shasum >/dev/null 2>&1; then
+        shasum -a 256 -c "$1"
+    else
+        die "Neither sha256sum nor shasum is available. Please install one of them and try again."
+    fi
+}
 # Function to download a file with fallback to backup URL
 # Parameters:
 #   $1: Download URL
@@ -82,9 +94,9 @@ download_file() {
     fi
 
     echo_with_timestamp "Validating shasum"
-    if ! sha256sum -c snyk-${PREFIX}.sha256; then
+    if ! checksum snyk-${PREFIX}.sha256; then
         echo_with_timestamp "Actual: "
-        sha256sum snyk-${PREFIX}
+        checksum snyk-${PREFIX}
 
         echo_with_timestamp "Expected: "
         cat snyk-${PREFIX}.sha256
