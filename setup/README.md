@@ -12,8 +12,8 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - uses: snyk/actions/setup@master
+    - uses: actions/checkout@v5
+    - uses: snyk/actions/setup@v1
     - uses: actions/setup-go@v1
       with:
         go-version: "1.13"
@@ -51,8 +51,8 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - uses: snyk/actions/setup@master
+    - uses: actions/checkout@v5
+    - uses: snyk/actions/setup@v1
       id: snyk
       with:
         snyk-version: v1.391.0

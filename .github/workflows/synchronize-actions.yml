@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - main
   workflow_dispatch:
 
 env:
@@ -38,7 +39,7 @@ jobs:
             echo "Branch ${{ env.DESTINATION_BRANCH }} already exists, checking out."
             git checkout ${{ env.DESTINATION_BRANCH }}
             echo "Cleaning it for a fresh start."
-            git reset --hard origin/master
+            git reset --hard origin/main
             exit 0
           fi
 
@@ -95,5 +96,5 @@ jobs:
             --title="${{ env.COMMIT_MESSAGE }}" \
             --body="Automatic PR controlled by a GitHub Action" \
             --head "${{ env.DESTINATION_BRANCH }}" \
-            --base ${{ github.ref_name || 'master' }}
+            --base ${{ github.ref_name || 'main' }}
   

@@ -1,0 +1,118 @@
+name: Semantic Versioning and Release
+
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: 'Run semantic-release in dry-run mode'
+        type: boolean
+        required: false
+        default: true
+
+jobs:
+  commitlint:
+    name: Commit Lint
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get current year and month month for caching
+        id: date
+        run: echo "month_year=$(date +'%m-%Y')" >> $GITHUB_OUTPUT
+
+      - name: Cache commitlint tools
+        id: cache-commitlint
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm-commitlint
+          key: npm-commitlint-${{ runner.os }}-${{ steps.date.outputs.month_year }}-v1
+          restore-keys: |
+            npm-commitlint-${{ runner.os }}-${{ steps.date.outputs.month_year }}-
+            npm-commitlint-${{ runner.os }}-
+
+      - name: Install commitlint and dependencies
+        if: steps.cache-commitlint.outputs.cache-hit != 'true'
+        run: |
+          npm config set prefix ~/.npm-commitlint
+          npm install -g \
+            @commitlint/cli \
+            @commitlint/config-conventional
+
+      - name: Add commitlint to PATH
+        run: echo "$HOME/.npm-commitlint/bin" >> $GITHUB_PATH
+
+        # To avoid having a package.json maintained in this repo, we just pretend to be a Node project during the run
+      - name: Create symlink for commitlint config
+        run: |
+          mkdir -p node_modules/@commitlint
+          ln -sf ~/.npm-commitlint/lib/node_modules/@commitlint/config-conventional node_modules/@commitlint/config-conventional
+
+      - name: Run commitlint on all commits
+        run: commitlint --from origin/main --to HEAD --verbose
+
+  semantic-release:
+    name: Semantic Versioning and Release
+    runs-on: ubuntu-latest
+    needs: commitlint
+    if: inputs.dry-run || github.ref == 'refs/heads/main'
+
+    permissions:
+      issues: write
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get current year and month month for caching
+        id: date
+        run: echo "month_year=$(date +'%m-%Y')" >> $GITHUB_OUTPUT
+
+      - name: Cache semantic-release tools
+        id: cache-semantic-release
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm-semantic-release
+          key: npm-semantic-release-${{ runner.os }}-${{ steps.date.outputs.month_year }}-v1
+          restore-keys: |
+            npm-semantic-release-${{ runner.os }}-${{ steps.date.outputs.month_year }}-
+            npm-semantic-release-${{ runner.os }}-
+
+      - name: Install semantic-release and plugins
+        if: steps.cache-semantic-release.outputs.cache-hit != 'true'
+        run: |
+          npm config set prefix ~/.npm-semantic-release
+          npm install -g \
+            semantic-release \
+            @semantic-release/commit-analyzer \
+            @semantic-release/release-notes-generator \
+            @semantic-release/npm \
+            @semantic-release/github
+
+      - name: Add semantic-release to PATH
+        run: echo "$HOME/.npm-semantic-release/bin" >> $GITHUB_PATH
+
+      - name: Run semantic-release (dry-run)
+        if: inputs.dry-run == true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: semantic-release --dry-run
+
+      - name: Run semantic-release
+        if: inputs.dry-run != true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: semantic-release
