@@ -19,9 +19,9 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v5
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/maven-3-jdk-22@master
+        uses: snyk/actions/maven-3-jdk-22@v1
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 ```
@@ -45,9 +45,9 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v5
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/maven-3-jdk-22@master
+        uses: snyk/actions/maven-3-jdk-22@v1
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
@@ -69,9 +69,9 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v5
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/maven-3-jdk-22@master
+        uses: snyk/actions/maven-3-jdk-22@v1
         continue-on-error: true # To make sure that SARIF upload gets called
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run Snyk to check Kubernetes manifest file for issues
-        uses: snyk/actions/iac@master
+        uses: snyk/actions/iac@v1
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 ```
@@ -48,7 +48,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run Snyk to check Kubernetes manifest file for issues
-        uses: snyk/actions/iac@master
+        uses: snyk/actions/iac@v1
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
@@ -67,7 +67,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run Snyk to check Kubernetes manifest file for issues
-        uses: snyk/actions/iac@master
+        uses: snyk/actions/iac@v1
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
@@ -86,7 +86,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run Snyk to check Kubernetes manifest file for issues
-        uses: snyk/actions/iac@master
+        uses: snyk/actions/iac@v1
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
@@ -104,7 +104,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run Snyk to check Kubernetes manifest file for issues
-        uses: snyk/actions/iac@master
+        uses: snyk/actions/iac@v1
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
@@ -127,7 +127,7 @@ jobs:
         # Snyk can be used to break the build when it detects security issues.
         # In this case we want to upload the issues to GitHub Code Scanning
         continue-on-error: true
-        uses: snyk/actions/iac@master
+        uses: snyk/actions/iac@v1
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       - name: Upload result to GitHub Code Scanning

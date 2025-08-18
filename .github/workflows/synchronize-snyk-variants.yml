@@ -40,7 +40,7 @@ jobs:
             echo "Branch ${{ env.DESTINATION_BRANCH }} already exists, checking out."
             git checkout ${{ env.DESTINATION_BRANCH }}
             echo "Cleaning it for a fresh start."
-            git reset --hard origin/master
+            git reset --hard origin/main
             exit 0
           fi
 
@@ -104,4 +104,4 @@ jobs:
             --title="${{ env.COMMIT_MESSAGE }}" \
             --body="This PR automatically removes variants that are no longer present in the [snyk-images](https://github.com/snyk/snyk-images) repository." \
             --head "${{ env.DESTINATION_BRANCH }}" \
-            --base master
+            --base main
