@@ -8,8 +8,9 @@ require "fileutils"
 class ActionGenerator
   VARIANTS = File.readlines('variants').map(&:strip).reject(&:empty?).freeze
 
-  def initialize
+  def initialize(current_git_version_tag)
     @templates_dir = "_templates"
+    @current_git_version_tag = current_git_version_tag
   end
 
   def generate_all
@@ -42,6 +43,7 @@ class ActionGenerator
     render_template("BASE.md.erb", "README.md") do |erb|
       erb.instance_variable_set(:@variants, active_variants)
       erb.instance_variable_set(:@deprecated_variants, deprecated_variants)
+      erb.instance_variable_set(:@current_git_version_tag, @current_git_version_tag)
     end
   end
 
@@ -70,6 +72,7 @@ class ActionGenerator
         erb.instance_variable_set(:@name, name)
         erb.instance_variable_set(:@ident, ident)
         erb.instance_variable_set(:@is_deprecated, is_deprecated)
+        erb.instance_variable_set(:@current_git_version_tag, @current_git_version_tag)
       end
     end
   end
@@ -82,6 +85,7 @@ class ActionGenerator
       erb.instance_variable_set(:@name, "Node")
       erb.instance_variable_set(:@ident, nil)
       erb.instance_variable_set(:@is_root, true)
+      erb.instance_variable_set(:@current_git_version_tag, @current_git_version_tag)
     end
   end
 
@@ -96,6 +100,7 @@ class ActionGenerator
     
     render_template(template_name, output_path) do |erb|
       erb.instance_variable_set(:@variants, active_variants)
+      erb.instance_variable_set(:@current_git_version_tag, @current_git_version_tag)
     end
   end
 
@@ -112,4 +117,14 @@ class ActionGenerator
 end
 
 # Run the generator if this file is executed directly
-ActionGenerator.new.generate_all if __FILE__ == $PROGRAM_NAME
+if __FILE__ == $PROGRAM_NAME
+  if ARGV.empty?
+    puts "Error: current_git_version_tag argument is required"
+    puts "Usage: #{$PROGRAM_NAME} <current_git_version_tag>"
+    puts "Example: #{$PROGRAM_NAME} v1"
+    exit 1
+  end
+  
+  current_git_version_tag = ARGV[0]
+  ActionGenerator.new(current_git_version_tag).generate_all
+end

@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/<%= @variant.downcase %>@master
+        uses: snyk/actions/<%= @variant.downcase %>@<%= @current_git_version_tag %>
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 ```
@@ -54,7 +54,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/<%= @variant.downcase %>@master
+        uses: snyk/actions/<%= @variant.downcase %>@<%= @current_git_version_tag %>
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
@@ -78,7 +78,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/<%= @variant.downcase %>@master
+        uses: snyk/actions/<%= @variant.downcase %>@<%= @current_git_version_tag %>
         continue-on-error: true # To make sure that SARIF upload gets called
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
