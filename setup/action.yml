@@ -26,7 +26,7 @@ runs:
         echo ${{ github.action_path }}
         
         ${{ github.action_path }}/setup_snyk.sh "${INPUT_SNYK_VERSION}" "${INPUT_OS}" || $GITHUB_ACTION_PATH/setup_snyk.sh "${INPUT_SNYK_VERSION}" "${INPUT_OS}"
-      shell: bash
+      shell: sh
     - id: version
-      shell: bash
+      shell: sh
       run: echo "version=$(snyk version)" >> $GITHUB_OUTPUT
