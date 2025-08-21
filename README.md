@@ -17,7 +17,6 @@ you are using.
 - [elixir-1.18](elixir-1.18)
 - [Golang](golang)
 - [Gradle](gradle)
-- [Gradle-jdk11](gradle-jdk11)
 - [gradle-8-jdk17](gradle-8-jdk17)
 - [gradle-9-jdk17](gradle-9-jdk17)
 - [gradle-8-jdk21](gradle-8-jdk21)
@@ -164,6 +163,7 @@ The following actions are deprecated and no longer supported by Snyk or the down
 
 
 - [dotNET](dotnet)
+- [Gradle-jdk11](gradle-jdk11)
 - [Gradle-jdk12](gradle-jdk12)
 - [Gradle-jdk14](gradle-jdk14)
 - [Gradle-jdk16](gradle-jdk16)

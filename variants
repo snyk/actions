@@ -3,7 +3,7 @@ dotNET DEPRECATED
 elixir-1.18
 Golang
 Gradle
-Gradle-jdk11
+Gradle-jdk11 DEPRECATED
 Gradle-jdk12 DEPRECATED
 Gradle-jdk14 DEPRECATED
 Gradle-jdk16 DEPRECATED

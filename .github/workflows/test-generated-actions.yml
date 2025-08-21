@@ -31,7 +31,6 @@ jobs:
           - elixir-1.18
           - golang
           - gradle
-          - gradle-jdk11
           - gradle-8-jdk17
           - gradle-9-jdk17
           - gradle-8-jdk21
@@ -79,12 +78,6 @@ jobs:
       - name: Run Snyk Gradle Action
         if: matrix.variant == 'gradle'
         uses: ./gradle/
-        with:
-          command: help
-
-      - name: Run Snyk Gradle-jdk11 Action
-        if: matrix.variant == 'gradle-jdk11'
-        uses: ./gradle-jdk11/
         with:
           command: help
 
