@@ -64,10 +64,21 @@ The Snyk Action will fail when vulnerabilities are found. This would prevent the
 
 ```yaml
 name: Example workflow for Maven using Snyk
+
 on: push
+
 jobs:
   security:
+
     runs-on: ubuntu-latest
+
+    permissions:
+      security-events: write
+
+      # If your repository is private, also add:
+      actions: read
+      contents: read
+
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
@@ -78,7 +89,7 @@ jobs:
         with:
           args: --sarif-file-output=snyk.sarif
       - name: Upload result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: snyk.sarif
 ```
