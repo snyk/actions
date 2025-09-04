@@ -1,8 +1,13 @@
+<!--
+WARNING: This file is generated, do not edit! Edit _templates/README.md.erb instead.
+-->
+
 # Snyk Python (3.9)  Action
+
+
 
 A [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.co/SnykGH) to check for
 vulnerabilities in your Python-3.9 projects. This Action is based on the [Snyk CLI][cli-gh] and you can use [all of its options and capabilities][cli-ref] with the `args`.
-
  > Note: The examples shared below reflect how Snyk github actions can be used. Snyk requires Python to have downloaded the dependencies before running or triggering the Snyk checks.
                           > The Python image checks and installs deps only if the manifest files are present in the current path (from where action is being triggered)
                           > 1. If pip is present on the current path , and Snyk finds a requirements.txt file, then Snyk runs pip install -r requirements.txt.
@@ -65,10 +70,21 @@ The Snyk Action will fail when vulnerabilities are found. This would prevent the
 
 ```yaml
 name: Example workflow for Python using Snyk
+
 on: push
+
 jobs:
   security:
+
     runs-on: ubuntu-latest
+
+    permissions:
+      security-events: write
+
+      # If your repository is private, also add:
+      actions: read
+      contents: read
+
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
@@ -79,7 +95,7 @@ jobs:
         with:
           args: --sarif-file-output=snyk.sarif
       - name: Upload result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: snyk.sarif
 ```

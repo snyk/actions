@@ -1,3 +1,5 @@
+# WARNING: This file is generated, do not edit! Edit _templates/action.yml.erb instead.
+
 name: "Snyk<% if @variant != "Node"%> <%= @name %><% if @ident %> (<%= @ident %>)<% end %><% end %>"
 description: "Check your <%= @variant == "Node" && @is_root ? "applications" : "#{@name} application" %> for vulnerabilities using Snyk"
 author: "Snyk Ltd"
@@ -13,7 +15,21 @@ inputs:
   json:
     description: "Output a snyk.json file with results if running the test command"
     default: false
-runs:
+runs:<% if @is_deprecated %>
+  using: "composite"
+  steps:
+    - name: Show deprecation warning
+      shell: bash
+      run: echo "::warning title=Deprecated Action::The action <%= @variant.downcase %> is deprecated. Please visit Snyk actions at https://github.com/snyk/actions for a newer version."
+
+    - name: Run Snyk scan
+      uses: docker://snyk/snyk:<%= @variant.downcase %>
+      env:
+        FORCE_COLOR: 2
+        SNYK_INTEGRATION_NAME: GITHUB_ACTIONS
+        SNYK_INTEGRATION_VERSION: <%= @variant.downcase %>
+      with:
+        args: snyk ${{ inputs.command }} ${{ inputs.args }}<% else %>
   using: "docker"
   image: "docker://snyk/snyk:<%= @variant.downcase %>"
   env:
@@ -23,4 +39,4 @@ runs:
   args:
   - snyk
   - ${{ inputs.command }}
-  - ${{ inputs.args }}
+  - ${{ inputs.args }}<% end %>

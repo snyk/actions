@@ -1,0 +1,44 @@
+# WARNING: This file is generated, do not edit! Edit _templates/test-generated-actions.yml.erb instead.
+#
+# Copyright 2025 Snyk Ltd.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Test Generated Actions
+on:
+  workflow_dispatch:
+  pull_request:
+
+jobs:
+  test-actions:
+    name: Test ${{ matrix.variant }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        variant:<% @variants.each do |variant| %>
+          - <%= variant.downcase %><% end %>
+    steps:
+      - uses: actions/checkout@v4
+        # This looks odd, but the `matrix.variant` as input in `uses` is not supported by Github.
+        # Therefore, we must add every step as a conditional instead, if we don't want to generate an
+        # individual workflow for each variant.
+<% @variants.each do |variant| %>
+      - name: Run Snyk <%= variant %> Action
+        if: matrix.variant == '<%= variant.downcase %>'
+        uses: ./<%= variant.downcase %>/
+        with:
+          command: help
+<% end %>
+      - name: Verify help command succeeded
+        run: echo "Snyk ${{ matrix.variant }} action executed successfully."

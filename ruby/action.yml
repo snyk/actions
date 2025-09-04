@@ -1,3 +1,5 @@
+# WARNING: This file is generated, do not edit! Edit _templates/action.yml.erb instead.
+
 name: "Snyk Ruby"
 description: "Check your Ruby application for vulnerabilities using Snyk"
 author: "Snyk Ltd"

@@ -1,3 +1,5 @@
+# WARNING: This file is generated, do not edit! Edit _templates/action.yml.erb instead.
+
 name: "Snyk Golang"
 description: "Check your Golang application for vulnerabilities using Snyk"
 author: "Snyk Ltd"

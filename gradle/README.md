@@ -1,8 +1,13 @@
+<!--
+WARNING: This file is generated, do not edit! Edit _templates/README.md.erb instead.
+-->
+
 # Snyk Gradle Action
+
+
 
 A [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.co/SnykGH) to check for
 vulnerabilities in your Gradle projects. This Action is based on the [Snyk CLI][cli-gh] and you can use [all of its options and capabilities][cli-ref] with the `args`.
-
 
 You can use the Action as follows:
 
@@ -58,10 +63,21 @@ The Snyk Action will fail when vulnerabilities are found. This would prevent the
 
 ```yaml
 name: Example workflow for Gradle using Snyk
+
 on: push
+
 jobs:
   security:
+
     runs-on: ubuntu-latest
+
+    permissions:
+      security-events: write
+
+      # If your repository is private, also add:
+      actions: read
+      contents: read
+
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
@@ -72,7 +88,7 @@ jobs:
         with:
           args: --sarif-file-output=snyk.sarif
       - name: Upload result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: snyk.sarif
 ```
