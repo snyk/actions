@@ -17,7 +17,6 @@ you are using.
 - [elixir-1.18](elixir-1.18)
 - [Golang](golang)
 - [Gradle](gradle)
-- [Gradle-jdk11](gradle-jdk11)
 - [gradle-8-jdk17](gradle-8-jdk17)
 - [gradle-9-jdk17](gradle-9-jdk17)
 - [gradle-8-jdk21](gradle-8-jdk21)
@@ -164,6 +163,7 @@ The following actions are deprecated and no longer supported by Snyk or the down
 
 
 - [dotNET](dotnet)
+- [Gradle-jdk11](gradle-jdk11)
 - [Gradle-jdk12](gradle-jdk12)
 - [Gradle-jdk14](gradle-jdk14)
 - [Gradle-jdk16](gradle-jdk16)
@@ -177,7 +177,18 @@ The following actions are deprecated and no longer supported by Snyk or the down
 - [Scala](scala)
 
 
-Made with 💜 by Snyk
+## Contributing
+
+To ensure the long-term stability and quality of this project, we are moving to a closed-contribution model effective August 2025. This change allows our core team to focus on a centralized development roadmap and rigorous quality assurance, which is essential for a component with such extensive usage.
+
+All of our development will remain public for transparency. We thank the community for its support and valuable contributions.
+
+## Getting Support
+
+GitHub issues have been disabled on this repository as part of our move to a closed-contribution model. The Snyk support team does not actively monitor GitHub issues on any Snyk development project.
+
+For help with Snyk products, please use the [Snyk support page](https://support.snyk.io/), which is the fastest way to get assistance.
 
 [cli-gh]: https://github.com/snyk/snyk 'Snyk CLI'
 [cli-ref]: https://docs.snyk.io/snyk-cli/cli-reference 'Snyk CLI Reference documentation'
+
