@@ -9,7 +9,7 @@ WARNING: This file is generated, do not edit! Edit _templates/README.md.erb inst
 A [GitHub Action](https://github.com/features/actions) for using [Snyk](https://snyk.co/SnykGH) to check for
 vulnerabilities in your PHP projects. This Action is based on the [Snyk CLI][cli-gh] and you can use [all of its options and capabilities][cli-ref] with the `args`.
 
-You can use the Action as follows:
+You can use the Action as follows (recommended: pin to major version):
 
 ```yaml
 name: Example workflow for PHP using Snyk
@@ -18,12 +18,22 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/php@master
+        uses: snyk/actions/php@v1
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 ```
+
+## Alternative: Pin to Commit SHA
+
+For maximum security, pin actions to a full commit SHA. Unlike tags or releases, a SHA is immutable and guarantees the exact code version used.
+
+```yaml
+- uses: snyk/actions/php@<commit-sha>
+```
+
+> **Note:** Git tags and release tags can be moved or recreated, so they are not truly immutable. Pinning to a commit SHA is the most secure pattern.
 
 ## Properties
 
@@ -44,9 +54,9 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/php@master
+        uses: snyk/actions/php@v1
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
@@ -79,9 +89,9 @@ jobs:
       contents: read
 
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/php@master
+        uses: snyk/actions/php@v1
         continue-on-error: true # To make sure that SARIF upload gets called
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
