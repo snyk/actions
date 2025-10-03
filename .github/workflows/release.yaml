@@ -3,7 +3,6 @@ name: Release
 on:
     push:
         branches:
-            - main
             - master
 
 jobs:
@@ -20,7 +19,7 @@ jobs:
               id: semver
               uses: ietf-tools/semver-action@000ddb2ebacad350ff2a15382a344dc05ea4c0a4
               with:
-                branch: main
+                branch: ${{ github.ref_name }}	
                 token: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Create tag
