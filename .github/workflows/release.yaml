@@ -1,0 +1,36 @@
+name: Release
+
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    release:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+    
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Get next version with semver-action
+              id: semver
+              uses: ietf-tools/semver-action@000ddb2ebacad350ff2a15382a344dc05ea4c0a4
+              with:
+                branch: ${{ github.ref_name }}	
+                token: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Create tag
+              run: |
+                git tag ${{ steps.semver.outputs.next }}
+                git tag ${{ steps.semver.outputs.nextMajor }}
+
+            - name: Push tag
+              run: git push --tags --force            
+
+            - name: Create GitHub Release with gh cli
+              run: gh release create ${{ steps.semver.outputs.next }} --generate-notes
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
