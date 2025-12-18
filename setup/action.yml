@@ -22,7 +22,9 @@ runs:
       id: cache-snyk
       uses: actions/cache@v4
       with:
-        path: /usr/local/bin/snyk
+        path: |
+          /usr/local/bin/snyk
+          /usr/local/bin/snyk-*
         key: snyk-${{ inputs.os }}-${{ inputs.snyk-version }}
 
     - name: Install Snyk CLI
