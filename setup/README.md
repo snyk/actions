@@ -31,15 +31,15 @@ The Setup Action requires `bash` and `curl` to be available and requires privile
 The Snyk Setup Action has properties which are passed to the underlying image. These are
 passed to the action using `with`.
 
-| Property | Default | Description |
-| --- | --- | --- |
-| snyk-version | latest | Install a specific version of Snyk |
+| Property     | Default | Description                        |
+|--------------|---------|------------------------------------|
+| snyk-version | latest  | Install a specific version of Snyk |
 
 The Action also has outputs:
 
-| Property | Default | Description |
-| --- | --- | --- |
-| version |   | The full version of the Snyk CLI installed |
+| Property | Default | Description                                |
+|----------|---------|--------------------------------------------|
+| version  |         | The full version of the Snyk CLI installed |
 
 For example, you can choose to install a specific version of Snyk. The installed version can be
 grabbed from the output:

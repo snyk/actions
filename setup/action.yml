@@ -18,15 +18,23 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - env:
+    - name: Cache Snyk CLI
+      id: cache-snyk
+      uses: actions/cache@v4
+      with:
+        path: /usr/local/bin/snyk
+        key: snyk-${{ inputs.os }}-${{ inputs.snyk-version }}
+
+    - name: Install Snyk CLI
+      if: inputs.snyk-version == 'latest' || steps.cache-snyk.outputs.cache-hit != 'true'
+      shell: bash
+      env:
         INPUT_SNYK_VERSION: ${{ inputs.snyk-version }}
         INPUT_OS: ${{ inputs.os }}
       run: |
-        echo $GITHUB_ACTION_PATH
-        echo ${{ github.action_path }}
-        
         ${{ github.action_path }}/setup_snyk.sh "${INPUT_SNYK_VERSION}" "${INPUT_OS}" || $GITHUB_ACTION_PATH/setup_snyk.sh "${INPUT_SNYK_VERSION}" "${INPUT_OS}"
+
+    - name: Get Snyk version
+      id: version
       shell: bash
-    - id: version
-      shell: bash
-      run: echo "version=$(snyk version)" >> $GITHUB_OUTPUT
+      run: echo "version=$(snyk version)" >> "${GITHUB_OUTPUT}"
