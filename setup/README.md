@@ -41,6 +41,13 @@ The Action also has outputs:
 |----------|---------|--------------------------------------------|
 | version  |         | The full version of the Snyk CLI installed |
 
+## Caching
+
+The Setup Action automatically caches the Snyk CLI binary to speed up subsequent workflow runs. The cache key is based on the operating system and Snyk version (`snyk-{os}-{version}`).
+
+> [!IMPORTANT]
+> The Snyk CLI is only cached when using a specific version of Snyk (e.g., `v1.391.0`). When using `snyk-version: latest`, the CLI will always be re-downloaded to ensure you have the most recent version.
+
 For example, you can choose to install a specific version of Snyk. The installed version can be
 grabbed from the output:
 
