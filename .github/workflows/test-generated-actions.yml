@@ -51,6 +51,18 @@ jobs:
           - python-3.12
           - ruby
           - sbt1.10.0-scala3.4.2
+          - uv-python-3.9-trixie
+          - uv-python-3.10-trixie
+          - uv-python-3.11-trixie
+          - uv-python-3.12-trixie
+          - uv-python-3.13-trixie
+          - uv-python-3.14-trixie
+          - uv-python-3.9-alpine
+          - uv-python-3.10-alpine
+          - uv-python-3.11-alpine
+          - uv-python-3.12-alpine
+          - uv-python-3.13-alpine
+          - uv-python-3.14-alpine
     steps:
       - uses: actions/checkout@v4
         # This looks odd, but the `matrix.variant` as input in `uses` is not supported by Github.
@@ -198,6 +210,78 @@ jobs:
       - name: Run Snyk SBT1.10.0-Scala3.4.2 Action
         if: matrix.variant == 'sbt1.10.0-scala3.4.2'
         uses: ./sbt1.10.0-scala3.4.2/
+        with:
+          command: help
+
+      - name: Run Snyk uv-python-3.9-trixie Action
+        if: matrix.variant == 'uv-python-3.9-trixie'
+        uses: ./uv-python-3.9-trixie/
+        with:
+          command: help
+
+      - name: Run Snyk uv-python-3.10-trixie Action
+        if: matrix.variant == 'uv-python-3.10-trixie'
+        uses: ./uv-python-3.10-trixie/
+        with:
+          command: help
+
+      - name: Run Snyk uv-python-3.11-trixie Action
+        if: matrix.variant == 'uv-python-3.11-trixie'
+        uses: ./uv-python-3.11-trixie/
+        with:
+          command: help
+
+      - name: Run Snyk uv-python-3.12-trixie Action
+        if: matrix.variant == 'uv-python-3.12-trixie'
+        uses: ./uv-python-3.12-trixie/
+        with:
+          command: help
+
+      - name: Run Snyk uv-python-3.13-trixie Action
+        if: matrix.variant == 'uv-python-3.13-trixie'
+        uses: ./uv-python-3.13-trixie/
+        with:
+          command: help
+
+      - name: Run Snyk uv-python-3.14-trixie Action
+        if: matrix.variant == 'uv-python-3.14-trixie'
+        uses: ./uv-python-3.14-trixie/
+        with:
+          command: help
+
+      - name: Run Snyk uv-python-3.9-alpine Action
+        if: matrix.variant == 'uv-python-3.9-alpine'
+        uses: ./uv-python-3.9-alpine/
+        with:
+          command: help
+
+      - name: Run Snyk uv-python-3.10-alpine Action
+        if: matrix.variant == 'uv-python-3.10-alpine'
+        uses: ./uv-python-3.10-alpine/
+        with:
+          command: help
+
+      - name: Run Snyk uv-python-3.11-alpine Action
+        if: matrix.variant == 'uv-python-3.11-alpine'
+        uses: ./uv-python-3.11-alpine/
+        with:
+          command: help
+
+      - name: Run Snyk uv-python-3.12-alpine Action
+        if: matrix.variant == 'uv-python-3.12-alpine'
+        uses: ./uv-python-3.12-alpine/
+        with:
+          command: help
+
+      - name: Run Snyk uv-python-3.13-alpine Action
+        if: matrix.variant == 'uv-python-3.13-alpine'
+        uses: ./uv-python-3.13-alpine/
+        with:
+          command: help
+
+      - name: Run Snyk uv-python-3.14-alpine Action
+        if: matrix.variant == 'uv-python-3.14-alpine'
+        uses: ./uv-python-3.14-alpine/
         with:
           command: help
 
