@@ -1,17 +1,26 @@
 #!/bin/bash
 set -e
 
-# This script takes two positional arguments. The first is the version of Snyk to install.
-# This can be a standard version (ie. v1.390.0) or it can be latest, in which case the
-# latest released version will be used.
+# This script takes two or three positional arguments. The first is the version
+# of Snyk to install. This can be a standard version (ie. v1.390.0) or it can
+# be latest, in which case the latest released version will be used.
 #
-# The second argument is the platform, in the format used by the `runner.os` context variable
-# in GitHub Actions. Note that this script does not currently support Windows based environments.
+# The second argument is the platform, in the format used by the `runner.os`
+# context variable in GitHub Actions. Note that this script does not currently
+# support Windows based environments.
 #
-# As an example, the following would install the latest version of Snyk for GitHub Actions for
-# a Linux runner:
+# The third argument is optional and specifies the CPU architecture, in the
+# format used by the `runner.arch` context variable in GitHub Actions (e.g.
+# X64, ARM64). When omitted, the architecture is auto-detected from `uname -m`.
 #
-#     ./snyk-setup.sh latest Linux
+# As an example, the following would install the latest version of Snyk for
+# GitHub Actions for a Linux x86_64 runner:
+#
+#     ./setup_snyk.sh latest Linux
+#
+# And for a Linux arm64 runner:
+#
+#     ./setup_snyk.sh latest Linux ARM64
 #
 
 echo_with_timestamp() {
@@ -24,32 +33,53 @@ die () {
 }
 
 # Check if correct number of arguments is provided
-[ "$#" -eq 2 ] || die "Setup Snyk requires two arguments, $# provided"
+if [ "$#" -lt 2 ] || [ "$#" -gt 3 ]; then
+    die "Setup Snyk requires 2 or 3 arguments, $# provided"
+fi
 
 cd "$(mktemp -d)"
-echo_with_timestamp "Installing the $1 version of Snyk on $2"
+echo_with_timestamp "Installing the $1 version of Snyk on $2 ${3:-$(uname -m)}"
 
 VERSION=$1
+RUNNER_OS=$2
+RUNNER_ARCH="${3:-$(uname -m)}"
 MAIN_URL="https://downloads.snyk.io/cli"
 BACKUP_URL="https://static.snyk.io/cli"
 SUDO_CMD="sudo"
 GH_ACTIONS="GITHUB_ACTIONS"
 
-# Determine the prefix based on the platform
-case "$2" in
+# Determine the OS prefix
+case "$RUNNER_OS" in
     Linux)   PREFIX=linux ;;
     macOS)   PREFIX=macos ;;
     Alpine)  PREFIX=alpine ;;
     Windows) die "Windows runner not currently supported" ;;
-    *)       die "Invalid runner specified: $2" ;;
+    *)       die "Invalid runner specified: $RUNNER_OS" ;;
 esac
+
+# Determine the arch suffix. Snyk publishes arm64 binaries for linux, macos,
+# and alpine.
+case "$RUNNER_ARCH" in
+    X64|x64|x86_64|amd64)
+        ARCH_SUFFIX="" ;;
+    ARM64|arm64|aarch64)
+        case "$PREFIX" in
+            linux|macos|alpine) ARCH_SUFFIX="-arm64" ;;
+            *)                  die "No arm64 binary available for $RUNNER_OS" ;;
+        esac
+        ;;
+    *)
+        die "Invalid architecture specified: $RUNNER_ARCH" ;;
+esac
+
+BINARY="snyk-${PREFIX}${ARCH_SUFFIX}"
 
 {
     echo "#!/bin/bash"
     echo export SNYK_INTEGRATION_NAME=\"$GH_ACTIONS\"
-    echo export SNYK_INTEGRATION_VERSION=\"setup \(${2}\)\"
+    echo export SNYK_INTEGRATION_VERSION=\"setup \(${RUNNER_OS}\)\"
     echo export FORCE_COLOR=2
-    echo eval snyk-${PREFIX} \$@
+    echo eval ${BINARY} \$@
 } > snyk
 
 if ! command -v "$SUDO_CMD" &> /dev/null; then
@@ -82,34 +112,34 @@ download_file() {
     fi
 
     echo_with_timestamp "Validating shasum"
-    if ! sha256sum -c snyk-${PREFIX}.sha256; then
+    if ! sha256sum -c ${BINARY}.sha256; then
         echo_with_timestamp "Actual: "
-        sha256sum snyk-${PREFIX}
+        sha256sum ${BINARY}
 
         echo_with_timestamp "Expected: "
-        cat snyk-${PREFIX}.sha256
+        cat ${BINARY}.sha256
 
         echo_with_timestamp "Shasum validation failed"
         return 1
     fi
 }
 
-if ! download_file "$MAIN_URL/$VERSION" "snyk-${PREFIX}"; then
+if ! download_file "$MAIN_URL/$VERSION" "${BINARY}"; then
     echo_with_timestamp "Failed to download and validate Snyk files"
-    
+
     echo_with_timestamp "Retrying download with secondary URL"
-    if ! download_file "$BACKUP_URL/$VERSION" "snyk-${PREFIX}"; then
+    if ! download_file "$BACKUP_URL/$VERSION" "${BINARY}"; then
         die "Failed to download and validate Snyk files"
     fi
 fi
 
 
 # Make the binary executable
-chmod +x snyk-${PREFIX}
+chmod +x ${BINARY}
 
 echo_with_timestamp "Moving and cleaning files"
 # Move the binary to /usr/local/bin
-${SUDO_CMD} mv snyk-${PREFIX} /usr/local/bin
+${SUDO_CMD} mv ${BINARY} /usr/local/bin
 rm -rf snyk*
 
 echo_with_timestamp "Installed Snyk v$(snyk -v)"
