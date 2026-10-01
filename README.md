@@ -31,7 +31,6 @@ you are using.
 - [Node](node)
 - [PHP](php)
 - [Python](python)
-- [Python-3.9](python-3.9)
 - [Python-3.10](python-3.10)
 - [Python-3.11](python-3.11)
 - [Python-3.12](python-3.12)
@@ -174,6 +173,7 @@ The following actions are deprecated and no longer supported by Snyk or the down
 - [Python-3.6](python-3.6)
 - [Python-3.7](python-3.7)
 - [Python-3.8](python-3.8)
+- [Python-3.9](python-3.9)
 - [Scala](scala)
 
 
