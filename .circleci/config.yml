@@ -12,6 +12,7 @@ jobs:
       - checkout
       - prodsec/security_scans:
           mode: auto
+          release-branch: master
 
 workflows:
   cicd:
