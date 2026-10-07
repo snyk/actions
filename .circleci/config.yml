@@ -26,4 +26,5 @@ workflows:
       - security-scans:
           context:
             - devex_cli
+            - endpoint-experience
             - prodsec-orb-runtime
